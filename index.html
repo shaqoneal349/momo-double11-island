@@ -316,13 +316,48 @@ body.photo .bubble,body.tour .bubble{display:none!important}
   .tog{min-width:0;flex:1}
 }
 @media (prefers-reduced-motion:reduce){button{transition:none}}
+
+/* ===== v65 精簡版：字級、島卡分頁、底部列 ===== */
+.card .body{font-size:15px;gap:14px}
+.card p{font-size:14px;line-height:1.55}
+.card h2{font-size:21px}
+.card .lead{color:var(--ink);font-size:14px}
+.row .nm b{font-size:15px;font-weight:700}
+.row .nm .sub{font-size:12px;color:var(--ink2);margin-top:2px;font-weight:400}
+.row .nm .sub.ok{color:#1d7a3e;font-weight:700}
+.chip{font-size:13px;padding:7px 13px}
+.isnav{display:flex;align-items:center;gap:8px}
+.isnav span{flex:1;text-align:center;font:700 11px var(--mono);color:var(--ink2);letter-spacing:.5px}
+.isnav button{width:34px;height:34px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:18px;line-height:1;min-height:0;padding:0;flex:0 0 auto}
+.tabs2{display:flex;gap:2px;border-bottom:1.5px solid var(--line);margin:0 -4px}
+.tabs2 button{flex:1;background:transparent;border:0;border-radius:0;padding:8px 2px 10px;font-size:14px;color:var(--ink2);position:relative;min-height:0}
+.tabs2 button.on{color:var(--ink);font-weight:700}
+.tabs2 button.on::after{content:'';position:absolute;left:12%;right:12%;bottom:-1.5px;height:3px;border-radius:3px;background:var(--momo)}
+.tabs2 button i{font-style:normal;display:inline-block;min-width:16px;padding:0 4px;border-radius:999px;background:var(--momo);color:#fff;font:700 10px var(--mono);vertical-align:middle}
+@media (max-width:800px){
+  .mtab{display:flex;align-items:center;gap:8px;padding:8px max(12px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-right,0px));height:auto;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .mtab>button,.mtab .seg{height:46px;box-shadow:var(--shadow);border-radius:999px;background:var(--cream)}
+  .mtab button.cta{flex:0 0 auto;flex-direction:row;gap:6px;padding:0 14px 0 12px;background:var(--momo);color:#fff;font-size:14px;font-weight:700}
+  .mtab button.cta span{font-size:16px}
+  .mtab .seg{flex:1;display:flex;padding:4px;gap:2px;min-width:0}
+  .mtab .seg button{flex:1;height:38px;border-radius:999px;font-size:14px;font-weight:600;color:var(--ink2);background:transparent;padding:0 4px;min-height:0;flex-direction:row}
+  .mtab .seg button.on{background:var(--ink);color:#fff}
+  .mtab button.ic{flex:0 0 46px;width:46px;padding:0;font-size:18px;flex-direction:row}
+  .mtab button.ic span{font-size:18px}
+  .mtab button.ic.on{background:var(--ink);color:#fff}
+  :root{--tab:62px}
+  .brand{cursor:pointer}
+  .brand .today{cursor:pointer}
+  .brand .today b::after{content:' ▾';font-size:11px;color:var(--ink2)}
+  .more{grid-template-columns:repeat(5,1fr)}
+}
 </style>
 <div id="stage"></div>
 <div class="brand">
   <div class="eyebrow">momo 2026 雙11</div>
   <h1>雙11 <em>優惠活動島</em></h1>
   <div class="sub">11/1–11/14・十座優惠島・每日活動一目瞭然</div>
-  <div class="today" id="todayLine"><b>11/1</b><span class="tag">開跑日</span></div>
+  <div class="today" id="todayLine" role="button"><b>11/1</b><span class="tag">開跑日</span></div>
 </div>
 <div class="tools">
   <button id="btnOverview" title="回到全景">⌂ 全景</button>
@@ -337,20 +372,20 @@ body.photo .bubble,body.tour .bubble{display:none!important}
 <div class="joy hidden" id="joy"><i id="joyKnob"></i></div>
 <div class="walkhint" id="walkhint" hidden><span>🚶 逛島中：點地面走過去、搖桿／WASD 自由走</span><button id="walkOff">結束</button></div>
 <nav class="mtab" id="mtab">
-  <button data-m="today"><span>★</span>今日</button>
-  <button data-m="time"><span>◷</span>日期</button>
-  <button data-m="list"><span>☰</span>清單</button>
-  <button data-m="avatar"><span>☺</span>角色</button>
-  <button data-m="more"><span>⋯</span>更多</button>
+  <button class="cta" data-m="calc"><span>💰</span>算回饋</button>
+  <div class="seg"><button data-m="overview" class="on">全景</button><button data-m="bird">鳥瞰</button><button data-m="list">清單</button></div>
+  <button class="ic" data-m="tour" title="60 秒導覽"><span>▶</span></button>
+  <button class="ic" data-m="more" title="更多"><span>⋯</span></button>
 </nav>
 <div class="more" id="more" hidden>
-  <button data-x="flows"><span>⇄</span>堆疊線</button>
-  <button data-x="tags"><span>🏷</span>建物標籤</button>
-  <button data-x="play"><span>⏯</span>自動輪播</button>
-  <button data-x="bird"><span>◎</span>鳥瞰</button>
-  <button data-x="overview"><span>⌂</span>全景</button>
-  <button data-x="tour"><span>▶</span>導覽</button>
+  <button data-x="days"><span>📅</span>選日期</button>
+  <button data-x="today"><span>★</span>今日</button>
+  <button data-x="avatar"><span>☺</span>角色</button>
+  <button data-x="photo"><span>📸</span>拍照</button>
   <button data-x="walk"><span>🚶</span>逛島</button>
+  <button data-x="flows"><span>⇄</span>堆疊線</button>
+  <button data-x="tags"><span>🏷</span>標籤</button>
+  <button data-x="play"><span>⏯</span>輪播</button>
   <button data-x="help"><span>?</span>說明</button>
   <button data-x="close"><span>✕</span>關閉</button>
 </div>
@@ -4044,7 +4079,7 @@ const DATA={
     {id:'mc_final',model:'ticket',name:'11/14 限量收尾',desc:'收尾日改為限量名額的百分比回饋。',facts:['滿 $3,500 送 2%（上限 300），限 4,000 名','滿 $18,000 送 2.5%（上限 600），限 1,000 名','滿 $30,000 送 3%（上限 1,000），限 800 名'],days:[14]}
    ]},
   {id:'gift',no:'02',name:'全站滿額贈',icon:'🎁',color:'#f2b5c6',tree:'sakura',q:1,r:0,
-   summary:'每天換一組品牌贈品：11/1 開跑多重贈，11/2–9 美妝保健輪替，11/10–11 高峰以 $1,111 門檻禮衝單，11/12–13 收尾。（日期對應依 Excel 合併欄推估，請再核對）',
+   summary:'每天換一組品牌贈品：11/1 開跑多重贈，11/2–9 美妝保健輪替，11/10–11 高峰以 $1,111 門檻禮衝單，11/12–13 收尾。',
    items:[
     {id:'gf_main',urls:[['天天滿額送','https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmbCGCT&n=1']],main:true,model:'giftbox',name:'每日品牌滿額贈',desc:'每日更換品牌贈品，門檻 $1,111 起。',facts:['14 天 30+ 組品牌贈品','門檻 $1,111 起','高門檻 $8,800／$10,000 品牌禮'],days:ALL},
     {id:'gf_open',urls:[['11/1 滿額送','https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWmVWbOO&n=1']],model:'bag',name:'11/1 開跑贈',desc:'開跑日多重滿額贈，mo店+ 滿 $666 登記送 7-11 奶茶。',facts:['滿 $1,111 送哈根達斯迷你杯即享券','滿 $10,000 送雅詩蘭黛唇膏／巴黎萊雅乳霜／正官庄雞精','mo店+ 滿 $666 送 7-11 冰琥珀小葉奶茶'],days:[1]},
@@ -4168,7 +4203,7 @@ async function main(){
  stage.appendChild(renderer.domElement);
  const labelRenderer=new CSS2DRenderer(); labelRenderer.setSize(innerWidth,innerHeight); labelRenderer.domElement.className='css2d'; stage.appendChild(labelRenderer.domElement);
  const scene=new THREE.Scene(); scene.fog=new THREE.Fog(0xf4eee3,42,150);
- const camera=new THREE.PerspectiveCamera(32,innerWidth/innerHeight,.3,320);
+ const camera=new THREE.PerspectiveCamera(innerWidth/innerHeight<.75?48:32,innerWidth/innerHeight,.3,320);
  const controls=new OrbitControls(camera,renderer.domElement);
  controls.enableDamping=true; controls.dampingFactor=.06; controls.enablePan=true; controls.screenSpacePanning=false; controls.zoomToCursor=false; controls.zoomSpeed=isMobile()?.9:.6; controls.panSpeed=1.1; controls.rotateSpeed=isMobile()?1.0:.8;
  controls.minPolarAngle=THREE.MathUtils.degToRad(5); controls.maxPolarAngle=THREE.MathUtils.degToRad(80); controls.minDistance=1.2; controls.maxDistance=70;
@@ -4422,8 +4457,8 @@ async function main(){
  // 氛圍行人：每島 2 條隨機路線（島內環道或跨橋到鄰島），每條 4–5 人，全天候走動
  const AMB=[]; islands.forEach((isl,ii)=>{for(let r=0;r<2;r++){const a=isl.nodeBase+Math.floor(rand()*12); const o=(r===0&&isl.neighbors.length)?isl.neighbors[Math.floor(rand()*isl.neighbors.length)]:isl; const b=o.nodeBase+Math.floor(rand()*12); if(a===b)continue; const path=dijkstra(a,b).map(i=>nodes[i].clone().setY(TOP+.1)); if(path.length<2)continue; const curve=new THREE.CatmullRomCurve3(path,false,'centripetal',.6); AMB.push({id:'amb'+ii+r,amb:true,curve,len:curve.getLength()});}});
  const AMBC=[C.teal,C.violet,C.pink,C.gold,C.sea,'#ffffff','#f2b5c6','#db6a41','#211d1d'];
- AMB.forEach((f,fi)=>{const n=4+Math.floor(rand()*2); for(let k=0;k<n;k++)WK.push({f,u:rand(),dir:rand()<.5?1:-1,speed:.26+rand()*.1,wait:0,phase:rand(),shirt:AMBC[(fi*3+k)%AMBC.length],hair:['#211d1d','#5a3a2a','#8a5a3a','#3b2a3a','#c98a4a'][(fi+k)%5],pos:V3(),ry:0});});
- DATA.flows.forEach((f,fi)=>{const n=4+Math.floor(rand()*5); for(let k=0;k<n;k++)WK.push({f,u:rand(),dir:rand()<.5?1:-1,speed:.32+rand()*.08,wait:0,phase:rand(),shirt:[C.momo,C.teal,C.coral,C.violet,C.gold,C.sea][(fi+k)%6],hair:['#211d1d','#5a3a2a','#8a5a3a','#3b2a3a'][k%4],pos:V3(),ry:0});});
+ AMB.forEach((f,fi)=>{const n=1+Math.floor(rand()*2); for(let k=0;k<n;k++)WK.push({f,u:rand(),dir:rand()<.5?1:-1,speed:.26+rand()*.1,wait:0,phase:rand(),shirt:AMBC[(fi*3+k)%AMBC.length],hair:['#211d1d','#5a3a2a','#8a5a3a','#3b2a3a','#c98a4a'][(fi+k)%5],pos:V3(),ry:0});});
+ DATA.flows.forEach((f,fi)=>{const n=1+Math.floor(rand()*2); for(let k=0;k<n;k++)WK.push({f,u:rand(),dir:rand()<.5?1:-1,speed:.32+rand()*.08,wait:0,phase:rand(),shirt:[C.momo,C.teal,C.coral,C.violet,C.gold,C.sea][(fi+k)%6],hair:['#211d1d','#5a3a2a','#8a5a3a','#3b2a3a'][k%4],pos:V3(),ry:0});});
  const WPART={leg:new THREE.CapsuleGeometry(.03,.07,3,6),arm:new THREE.CapsuleGeometry(.025,.08,3,6),body:new THREE.CapsuleGeometry(.065,.1,4,8),head:new THREE.SphereGeometry(.085,12,10),hair:new THREE.SphereGeometry(.09,12,8,0,Math.PI*2,0,Math.PI/2),eye:new THREE.SphereGeometry(.012,6,6),coin:new THREE.CylinderGeometry(.05,.05,.015,12),shadow:new THREE.CircleGeometry(.1,12).rotateX(-Math.PI/2)};
  const wmat=new THREE.MeshStandardMaterial({roughness:.8}); const W={}; Object.entries(WPART).forEach(([k,g])=>{const per=k==='leg'||k==='arm'||k==='eye'?2:1; const m=new THREE.InstancedMesh(g,k==='shadow'?new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.22,depthWrite:false}):k==='coin'?new THREE.MeshStandardMaterial({color:C.gold,roughness:.4,metalness:.2,emissive:col(C.gold),emissiveIntensity:.15}):wmat,WK.length*per); m.instanceMatrix.setUsage(THREE.DynamicDrawUsage); m.castShadow=false; m.frustumCulled=false; scene.add(m); W[k]=m;});
  WK.forEach((w,i)=>{W.body.setColorAt(i,col(w.shirt)); W.head.setColorAt(i,col(C.skin)); W.hair.setColorAt(i,col(w.hair)); for(let j=0;j<2;j++){W.leg.setColorAt(i*2+j,col('#4a4a5a')); W.arm.setColorAt(i*2+j,col(C.skin)); W.eye.setColorAt(i*2+j,col(C.ink));}}); Object.values(W).forEach(m=>{if(m.instanceColor)m.instanceColor.needsUpdate=true;});
@@ -4629,31 +4664,34 @@ async function main(){
   on('#phSolo','click',()=>startPhoto(false)); on('#phMomoco','click',()=>startPhoto(true)); on('#phLeeteuk','click',()=>startPhoto('leeteuk')); on('#phHeechul','click',()=>startPhoto('heechul')); on('#phJeremy','click',()=>startPhoto('jeremy'));}
  // ---------- 品類達人（12 位 NPC，可對話、連到分會場） ----------
  const EXPERTS=[
-  {id:'3c',guide:'https://preeminent-kashata-fba872.netlify.app/#3c',name:'3C達人',ic:'💻',isl:'mocard',ang:.95,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfKUwVj&n=1',look:{hair:0,hairColor:'#211d1d',skin:'#f6d7c0',top:'#3e7c8c',bottom:'#211d1d',hat:0,item:3,glasses:1},
+  {id:'3c',nick:'Gina',guide:'https://preeminent-kashata-fba872.netlify.app/#3c',name:'3C達人',ic:'💻',isl:'mocard',ang:.95,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfKUwVj&n=1',look:{hair:0,hairColor:'#211d1d',skin:'#f6d7c0',top:'#3e7c8c',bottom:'#211d1d',hat:0,item:3,glasses:1},
    lines:['嗨！我是 3C達人，想換手機、筆電、相機，先來找我。','3C達人日：3C神券指定品現領現折，24HR 爆品瘋殺最高現折 2,901。','果粉獨享專區、安卓熱銷必收，滿額登記還有好禮。'],
    picks:[['iPhone 12 Pro Max 128G','39,900','36,999'],['Apple Watch SE2 GPS 40mm','7,900','5,799'],['華碩 Ultra5 16G OLED 莓果粉','40,999','34,999'],['BenQ 32 型 4K 鏡面護眼','20,888','17,888']]},
-  {id:'appliance',guide:'https://preeminent-kashata-fba872.netlify.app/#appliance',name:'家電達人',ic:'🧺',isl:'mocard',ang:2.1,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfX5fIO&n=1',look:{hair:2,hairColor:'#5a3a2a',skin:'#edc3a3',top:'#ffffff',bottom:'#2b3a5a',hat:0,item:0,glasses:0},
+  {id:'appliance',nick:'龍哥',guide:'https://preeminent-kashata-fba872.netlify.app/#appliance',name:'家電達人',ic:'🧺',isl:'mocard',ang:2.1,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfX5fIO&n=1',look:{hair:2,hairColor:'#5a3a2a',skin:'#edc3a3',top:'#ffffff',bottom:'#2b3a5a',hat:0,item:0,glasses:0},
    lines:['掃拖機器人、冰箱、飲水機，家電日一日特談限定加碼！','大小家電都有登記區塊，品牌日 TOP 品牌再加碼。','今天的瘋搶攻略：掃拖機器人下殺到 2 萬有找。'],
    picks:[['Roborock Qrevo Edge2 掃拖機器人','59,999','17,911'],['ECOVACS DEEBOT T90S PRO','54,988','19,911'],['CHIMEI 195L 一級能效變頻冰箱','12,490','8,611'],['伊萊克斯 極淨瞬熱 RO 飲水機','11,900','5,911']]},
-  {id:'home',guide:'https://preeminent-kashata-fba872.netlify.app/#home',name:'家居餐廚達人',ic:'🍳',isl:'gift',ang:.6,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfbG8Gh&n=1',look:{hair:3,hairColor:'#8a5a3a',skin:'#f6d7c0',top:'#f2b5c6',bottom:'#c5b5a7',hat:0,item:4,glasses:0},
+  {id:'home',nick:'依天',guide:'https://preeminent-kashata-fba872.netlify.app/#home',name:'家居餐廚達人',ic:'🍳',isl:'gift',ang:.6,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfbG8Gh&n=1',look:{hair:3,hairColor:'#8a5a3a',skin:'#f6d7c0',top:'#f2b5c6',bottom:'#c5b5a7',hat:0,item:4,glasses:0},
    lines:['家居品類日：天天搶 5 折券，還抽 LC 鑄鐵鍋 3 入！','床墊、人體工學椅、鑄鐵鍋都有一日激省價。','寢具、鍋具、收納、傢俱分區逛，mo select 精選別錯過。'],
    picks:[['STAUB 圓形鑄鐵鍋 22cm','10,800','3,999'],['Lunio 標準雙人乳膠獨立筒床墊','19,800','7,840'],['SIDIZ T50AIR 二代人體工學椅','15,999','9,499'],['台達電子 浴室涼暖風機 300 系列','14,900','7,049']]},
-  {id:'fashion',guide:'https://preeminent-kashata-fba872.netlify.app/#fashion',guide2:['https://preeminent-kashata-fba872.netlify.app/#bags','鞋包／運動／精品攻略'],name:'流行時尚達人',ic:'👜',isl:'sj',ang:2.75,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfe0ZuT&n=1',look:{hair:1,hairColor:'#c98a4a',skin:'#edc3a3',top:'#211d1d',bottom:'#4a4a5a',hat:2,item:2,glasses:2},
-   lines:['服飾內著日回饋 48%，mo TREND 全面 5 折起。','COACH 最高回饋 35%、NIKE 全館 4 折 up、adidas 最高狂送 52%。','鞋包、運動、精品也歸我管：agnès b. 斜背包、eminent 行李箱、Palladium 防水靴都在今日主打。'],
-   picks:[['agnès b. Voyage 皮革斜背包','8,980','5,500'],['eminent 28 吋前開式行李箱','10,880','8,411'],['Palladium 橡膠機能防水靴','3,380','1,999'],['曼黛瑪璉 包覆提托 3 套組','6,480','1,711']]},
-  {id:'beauty',guide:'https://preeminent-kashata-fba872.netlify.app/#beauty',name:'美妝保養達人',ic:'💄',isl:'gift',ang:2.0,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfihYUM&n=1',look:{hair:1,hairColor:'#3b2a3a',skin:'#f6d7c0',top:'#e2237a',bottom:'#211d1d',hat:0,item:0,glasses:0},
+  {id:'fashion',nick:'池池',guide:'https://preeminent-kashata-fba872.netlify.app/#fashion',name:'流行時尚達人',ic:'👜',isl:'sj',ang:2.75,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfe0ZuT&n=1',look:{hair:1,hairColor:'#c98a4a',skin:'#edc3a3',top:'#211d1d',bottom:'#4a4a5a',hat:2,item:2,glasses:2},
+   lines:['我是池池，服裝交給我：服飾內著日回饋 48%，mo TREND 全面 5 折起。','COACH 最高回饋 35%、NIKE 全館 4 折 up、adidas 最高狂送 52%。','鞋包、運動、精品要找漢斯，他在滿額贈島等你。'],
+   picks:[['曼黛瑪璉 包覆提托 3 套組','6,480','1,711'],['adidas 經典三線連帽外套','2,690','1,290'],['UNIQLO 聯名針織衫','1,290','790']]},
+  {id:'bags',nick:'漢斯',guide:'https://preeminent-kashata-fba872.netlify.app/#bags',name:'鞋包精品達人',ic:'👟',isl:'gift',ang:2.4,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfe0ZuT&n=1',look:{hair:0,hairColor:'#3a2a1a',skin:'#edc3a3',top:'#8a5a3a',bottom:'#211d1d',hat:0,item:2,glasses:0},
+   lines:['我是漢斯，鞋包、運動、精品歸我管：agnès b. 斜背包、eminent 行李箱、Palladium 防水靴都在今日主打。','COACH 最高回饋 35%、NIKE 全館 4 折 up，精品包滿額再送。','想找服裝就去 Super Junior 83Z 周邊島找池池。'],
+   picks:[['agnès b. Voyage 皮革斜背包','8,980','5,500'],['eminent 28 吋前開式行李箱','10,880','8,411'],['Palladium 橡膠機能防水靴','3,380','1,999']]},
+  {id:'beauty',nick:'阿3',guide:'https://preeminent-kashata-fba872.netlify.app/#beauty',name:'美妝保養達人',ic:'💄',isl:'gift',ang:1.45,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfihYUM&n=1',look:{hair:1,hairColor:'#3b2a3a',skin:'#f6d7c0',top:'#e2237a',bottom:'#211d1d',hat:0,item:0,glasses:0},
    lines:['美妝品類日：24H 限時飆低價，強牌鉅獻超狂下殺。','1111 特談手刀購、獨家買一送一，下單登記抽好禮。','專櫃保養、醫美修護、開架、香氛通通分區，囤貨看這裡。'],
    picks:[['SK-II 青春露 330ml','9,771','7,641'],['雅詩蘭黛 小棕組','17,100','9,900'],['LA MER 經典乳霜','13,300','7,800'],['理膚寶水 B3 精華','8,320','3,710']]},
-  {id:'daily',guide:'https://preeminent-kashata-fba872.netlify.app/#clean',name:'日用婦幼達人',ic:'🧴',isl:'cvs',ang:.7,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfju8aC&n=1',look:{hair:3,hairColor:'#5a3a2a',skin:'#edc3a3',top:'#58a6a6',bottom:'#c5b5a7',hat:0,item:2,glasses:0},
+  {id:'daily',nick:'愛麗絲',guide:'https://preeminent-kashata-fba872.netlify.app/#clean',name:'日用婦幼達人',ic:'🧴',isl:'cvs',ang:.7,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfju8aC&n=1',look:{hair:3,hairColor:'#5a3a2a',skin:'#edc3a3',top:'#58a6a6',bottom:'#c5b5a7',hat:0,item:2,glasses:0},
    lines:['日用分會場天天抽 iPhone 18 Pro，滿額登記送 11%！','24H 終極補給限搶、分次配一次買齊分批送。','紙品清潔、母嬰婦幼、寵物專區，囤貨最划算的一天。'],
    picks:[['ARIEL 洗衣精 8 包','1,099','899'],['幫寶適尿布 6 箱','8,574','6,294'],['Chicco 成長型汽座恆溫版','6,980','3,361'],['紐頓 T22/T24 無穀貓糧 5.4kg','3,450','2,099']]},
-  {id:'health',guide:'https://preeminent-kashata-fba872.netlify.app/#health',name:'保健樂活達人',ic:'💊',isl:'green',ang:1.2,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfksQ5u&n=1',look:{hair:0,hairColor:'#d9d2c8',skin:'#f6d7c0',top:'#ffffff',bottom:'#2b3a5a',hat:0,item:0,glasses:1},
+  {id:'health',nick:'泰瑞',guide:'https://preeminent-kashata-fba872.netlify.app/#health',name:'保健樂活達人',ic:'💊',isl:'green',ang:1.2,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfksQ5u&n=1',look:{hair:0,hairColor:'#d9d2c8',skin:'#f6d7c0',top:'#ffffff',bottom:'#2b3a5a',hat:0,item:0,glasses:1},
    lines:['保健雙11 狂降 3 折 up，下單抽 Duo！','刷 mo卡最高回饋 11,111，期間滿額再贈 100 mo。','葉黃素、益生菌、燕窩買一送一，TOP10 幫你挑好了。'],
    picks:[['華陀扶元堂 上品御燕燕窩 買一送一','7,960','1,980'],['好立善 葉黃素軟膠囊 13 入','6,500','2,999'],['台塑生醫 舒暢益生菌 5 盒','3,750','2,680'],['力度伸 維他命發泡錠 3 盒','3,150','1,698']]},
-  {id:'food',name:'美食達人',ic:'🍜',isl:'cvs',ang:2.2,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfld48X&n=1',look:{hair:4,hairColor:'#211d1d',skin:'#edc3a3',top:'#db6a41',bottom:'#211d1d',hat:1,item:4,glasses:0},
+  {id:'food',nick:'大白',name:'美食達人',ic:'🍜',isl:'cvs',ang:2.2,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfld48X&n=1',look:{hair:4,hairColor:'#211d1d',skin:'#edc3a3',top:'#db6a41',bottom:'#211d1d',hat:1,item:4,glasses:0},
    lines:['美食吃貨日：雙11 美食神券、滿額送 111 mo點。','下單抽寒舍年菜，今日限時殺天天換。','生鮮肉品、滴雞精、咖啡茗茶，吃貨攻略區一次看。'],
    picks:[['勝崎 紐西蘭 PS 嫩肩牛排 1.5kg','2,639','811'],['哈根達斯 新經典迷你杯 16 入','2,499','1,258'],['克寧 100% 純生乳奶粉 2.2kg×2','1,780','1,211'],['寒舍集團 年菜 8 件組','8,088','4,888']]},
-  {id:'travel',guide:'https://preeminent-kashata-fba872.netlify.app/#travel',name:'休閒旅遊達人',ic:'🧳',isl:'prize',ang:2.3,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfp1s70&n=1',look:{hair:0,hairColor:'#8a5a3a',skin:'#d9a57e',top:'#f3c54a',bottom:'#c5b5a7',hat:1,item:5,glasses:2},
+  {id:'travel',nick:'喬娜',guide:'https://preeminent-kashata-fba872.netlify.app/#travel',name:'休閒旅遊達人',ic:'🧳',isl:'prize',ang:2.3,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfp1s70&n=1',look:{hair:0,hairColor:'#8a5a3a',skin:'#d9a57e',top:'#f3c54a',bottom:'#c5b5a7',hat:1,item:5,glasses:2},
    lines:['休閒旅遊分會場全館 5 折起，下單抽機車！','樂高網紅超推薦、防災商品有備無患。','momo 旅遊省錢達人、全年最低瘋搶價都在這。'],
    picks:[['樂高 法拉利 SF-24 F1 賽車 42207','7,999','5,599'],['樂高 史傑克船長的海盜船 10365','12,599','10,079'],['樂高 城市系列 客機 60367','3,599','2,519'],['樂高 法拉利頭盔 2 入組','6,398','5,758']]},
   {id:'books',guide:'https://preeminent-kashata-fba872.netlify.app/#books',name:'圖書達人',ic:'📚',isl:'mopro',ang:.9,url:'https://www.momoshop.com.tw/edm/cmmedm.jsp?lpn=O7ylWfqGqE9&n=1',look:{hair:2,hairColor:'#3b2a3a',skin:'#f6d7c0',top:'#6f7fb5',bottom:'#4a4a5a',hat:2,item:0,glasses:1},
@@ -4678,6 +4716,7 @@ async function main(){
   travel:Array(11).fill(['登記抽機車','天天抽神券']),
   books:[['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽8%'],['狂降66折up','滿額登記抽8%'],['狂降66折up','滿額登記抽8%'],['狂降66折up','滿額登記抽8%'],['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽1200'],['狂降66折up','滿額登記抽1200']],
   cross:[...Array(9).fill(['不限金額0關稅','限時92折神券']),['不限金額0關稅','限時88折神券'],['不限金額0關稅','限時88折神券']]};
+ CAT_DAILY.bags=CAT_DAILY.fashion;
  const catToday=(ex,d)=>{const arr=CAT_DAILY[ex.id]; return arr&&arr[d-1]?arr[d-1]:null;};
  const catNew=(ex,d)=>{const a=catToday(ex,d),b=d>1?catToday(ex,d-1):null; if(!a)return false; if(!b)return d===1?false:true; return a[0]!==b[0]||a[1]!==b[1];};
  // 把 11 天壓成「日期區間 → 活動」
@@ -4691,21 +4730,21 @@ async function main(){
   ex.parts={}; buildFigure(grp,Object.assign({height:1.04,wide:1},ex.look),ex.parts); ex.parts.armR.rotation.x=ex.look.item?-.9:0;
   const sh=new THREE.Mesh(new THREE.CircleGeometry(.12,14).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:0x000,transparent:true,opacity:.22,depthWrite:false})); sh.position.y=.012; grp.add(sh);
   // 小立牌
-  const sign=new THREE.Group(); sign.position.set(.3,0,-.12); const post=mk(new THREE.CylinderGeometry(.012,.012,.4,8),C.wood); post.position.y=.2; const cv=document.createElement('canvas'); cv.width=256; cv.height=128; const g2=cv.getContext('2d'); g2.fillStyle='#fff8f4'; g2.fillRect(0,0,256,128); g2.fillStyle='#e2237a'; g2.fillRect(0,0,256,26); g2.fillStyle='#fff'; g2.font='bold 18px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif'; g2.textAlign='center'; g2.fillText(ex.star?'雙11 活動大使':'雙11 品類日',128,19); g2.fillStyle='#211d1d'; g2.font='bold 40px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif'; g2.fillText(ex.name.replace('達人',''),128,82); g2.font='bold 20px sans-serif'; g2.fillStyle='#6b5f5a'; g2.fillText(ex.star?'Super Junior 83Z':'達人',128,112); const tex=new THREE.CanvasTexture(cv); tex.colorSpace=THREE.SRGBColorSpace; const board=new THREE.Mesh(new THREE.BoxGeometry(.32,.16,.02),[solidMat,solidMat,solidMat,solidMat,new THREE.MeshStandardMaterial({map:tex,roughness:.8}),new THREE.MeshStandardMaterial({color:C.cream,roughness:.8})]); board.position.y=.44; sign.add(post,board); grp.add(sign);
+  const sign=new THREE.Group(); sign.position.set(.3,0,-.12); const post=mk(new THREE.CylinderGeometry(.012,.012,.4,8),C.wood); post.position.y=.2; const cv=document.createElement('canvas'); cv.width=256; cv.height=128; const g2=cv.getContext('2d'); g2.fillStyle='#fff8f4'; g2.fillRect(0,0,256,128); g2.fillStyle='#e2237a'; g2.fillRect(0,0,256,26); g2.fillStyle='#fff'; g2.font='bold 18px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif'; g2.textAlign='center'; g2.fillText(ex.star?'雙11 活動大使':'雙11 品類日',128,19); g2.fillStyle='#211d1d'; g2.font='bold 40px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif'; g2.fillText(ex.nick||ex.name.replace('達人',''),128,82); g2.font='bold 20px sans-serif'; g2.fillStyle='#6b5f5a'; g2.fillText(ex.star?'Super Junior 83Z':ex.nick?ex.name:'達人',128,112); const tex=new THREE.CanvasTexture(cv); tex.colorSpace=THREE.SRGBColorSpace; const board=new THREE.Mesh(new THREE.BoxGeometry(.32,.16,.02),[solidMat,solidMat,solidMat,solidMat,new THREE.MeshStandardMaterial({map:tex,roughness:.8}),new THREE.MeshStandardMaterial({color:C.cream,roughness:.8})]); board.position.y=.44; sign.add(post,board); grp.add(sign);
   const hit=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.75,8),new THREE.MeshBasicMaterial({visible:false})); hit.position.y=.37; hit.userData.expert=ex.id; grp.add(hit); pickables.push(hit);
-  const ne=document.createElement('div'); ne.className='nameplate ex'; ne.innerHTML=`<span class="ic">${ex.ic}</span><span class="t">${esc(ex.name)}</span>`; ne.addEventListener('click',e=>{e.stopPropagation(); selectExpert(ex.id);}); const no=new CSS2DObject(ne); no.position.set(0,.7,0); grp.add(no); ex.plate=ne;
+  const ne=document.createElement('div'); ne.className='nameplate ex'; ne.innerHTML=`<span class="ic">${ex.ic}</span><span class="t">${esc(ex.nick||ex.name)}</span>`; ne.addEventListener('click',e=>{e.stopPropagation(); selectExpert(ex.id);}); const no=new CSS2DObject(ne); no.position.set(0,.7,0); grp.add(no); ex.plate=ne;
   const bub=document.createElement('div'); bub.className='bubble'; bub.textContent=ex.lines[0]; const bo=new CSS2DObject(bub); bo.position.set(0,.86,0); bo.visible=false; grp.add(bo); ex.bubble=bo; ex.grp=grp; scene.add(grp); expertGroups.push(grp);});
  let exLine=0,exTimer=0;
- function stepExperts(dt,t){exTimer+=dt; const camD=camera.position.distanceTo(controls.target); const near=camD<9; EXPERTS.forEach((ex,i)=>{const g=ex.grp.children.find(c=>c.type==='Group'&&c!==ex.plate); ex.parts.head.rotation.y=Math.sin(t*.8+i)*.18; ex.parts.armL.rotation.x=Math.sin(t*1.3+i)*.08; const sel=(state.sel&&state.sel.type==='expert'&&state.sel.id===ex.id)||(state.photo&&state.photoWith===ex.id); const d=camera.position.distanceTo(ex.grp.position); const show=!state.photo&&!tour.on&&(sel||d<7); if(ex.bubble.visible!==show)ex.bubble.visible=show; const sIsl=state.sel&&state.sel.type==='island'?state.sel.id:state.sel&&state.sel.type==='item'?itemMap[state.sel.id].island.id:null; const mode=sel?'full':sIsl?(sIsl===ex.isl?'icon':'far'):d<9?'full':d<16?'icon':'far'; if(ex.plateMode!==mode){ex.plateMode=mode; ex.plate.classList.toggle('icon',mode==='icon'); ex.plate.classList.toggle('far',mode==='far');} if(show){const L=exLines(ex); const li=sel?(exLine%L.length):Math.floor(t/6+i)%L.length; const txt=L[li]; if(ex.bubble.element.textContent!==txt)ex.bubble.element.textContent=txt;}
+ function stepExperts(dt,t){exTimer+=dt; const camD=camera.position.distanceTo(controls.target); const near=camD<9; EXPERTS.forEach((ex,i)=>{const g=ex.grp.children.find(c=>c.type==='Group'&&c!==ex.plate); ex.parts.head.rotation.y=Math.sin(t*.8+i)*.18; ex.parts.armL.rotation.x=Math.sin(t*1.3+i)*.08; const sel=(state.sel&&state.sel.type==='expert'&&state.sel.id===ex.id)||(state.photo&&state.photoWith===ex.id); const d=camera.position.distanceTo(ex.grp.position); const show=!state.photo&&!tour.on&&(sel||d<5); if(ex.bubble.visible!==show)ex.bubble.visible=show; const sIsl=state.sel&&state.sel.type==='island'?state.sel.id:state.sel&&state.sel.type==='item'?itemMap[state.sel.id].island.id:null; const mode=sel?'full':sIsl?(sIsl===ex.isl?'icon':'far'):d<6?'full':'far'; if(ex.plateMode!==mode){ex.plateMode=mode; ex.plate.classList.toggle('icon',mode==='icon'); ex.plate.classList.toggle('far',mode==='far');} if(show){const L=exLines(ex); const li=sel?(exLine%L.length):Math.floor(t/6+i)%L.length; const txt=L[li]; if(ex.bubble.element.textContent!==txt)ex.bubble.element.textContent=txt;}
    if(sel){const dc=camera.position.clone().sub(ex.grp.position); const ry=Math.atan2(dc.x,dc.z); let dr=ry-ex.grp.rotation.y; dr=Math.atan2(Math.sin(dr),Math.cos(dr)); ex.grp.rotation.y+=dr*Math.min(1,dt*6);}});}
- function exLines(ex){if(ex.star)return ex.lines.slice(); const td=catToday(ex,state.day); const base=ex.lines.slice(); if(ex.guide)base.push(`想知道怎麼買最划算？我整理了一份${ex.name.replace('達人','')}攻略，按下面「看攻略」就能看。`); if(td)base.splice(1,0,`今天 11/${state.day} ${ex.name.replace('達人','')}品類日：${td[0]}、${td[1]}${catNew(ex,state.day)?'，今天剛換的！':'。'}`); return base;}
+ function exLines(ex){if(ex.star)return ex.lines.slice(); const td=catToday(ex,state.day); const base=ex.lines.slice(); if(ex.guide)base.push(`想知道怎麼買最划算？${ex.nick?'我是'+ex.nick+'，':''}我整理了一份${ex.name.replace('達人','')}攻略，按下面「看攻略」就能看。`); if(td)base.splice(1,0,`今天 11/${state.day} ${ex.name.replace('達人','')}品類日：${td[0]}、${td[1]}${catNew(ex,state.day)?'，今天剛換的！':'。'}`); return base;}
  function selectExpert(id){const ex=expertMap[id]; state.cardHidden=false; exLine=0; setSel({type:'expert',id}); const p=ex.grp.position; const f=V3(Math.sin(ex.grp.rotation.y),0,Math.cos(ex.grp.rotation.y)); const eye=p.clone().setY(TOP+.35); const pos=bestView(eye,2.0,TOP+.85,f,[ex.id]); const tgt=eye.clone(); if(isMobile())tgt.y=TOP+.02; flyTo(pos,tgt); if(isMobile())mobileShow(null);}
  function renderStarCard(ex){const isl=islandMap[ex.isl]; $('#cardIcon').textContent=ex.ic; $('#cardEyebrow').textContent=`雙11 活動大使・在 ${isl.name}`; $('#cardTitle').textContent=ex.name; const L=exLines(ex);
   const body=$('#cardBody'); body.innerHTML=`<div class="talk"><div class="say" id="exSay">${esc(L[exLine%L.length])}</div><div class="rowbtn"><button id="exNext" class="chip">${exLine<L.length-1?'繼續聽 →':'再聽一次'}</button><span class="eyebrow" style="align-self:center">${(exLine%L.length)+1}／${L.length}</span></div></div>
    <div><div class="eyebrow" style="margin-bottom:6px">Super Junior 83Z × momo 雙11</div><div class="ctas">${STAR_LINKS.map(([ic,n,u])=>`<a class="cta${n.includes('週邊')?'':' alt'}" href="${u}" target="_blank" rel="noopener">${ic} ${esc(n)} ↗</a>`).join('')}</div></div>
    <div class="chips"><button class="chip" id="stPhoto">📸 與${esc(ex.name)}合照</button><button class="chip cream" data-walk-to="${ex.id}">☺ 角色走過去</button><button class="chip cream" data-island="${isl.id}">${isl.icon} ${esc(isl.name)}</button></div>`;
   body.querySelector('#exNext').addEventListener('click',()=>{exLine=(exLine+1)%L.length; renderExpertCard();}); body.querySelector('#stPhoto').addEventListener('click',()=>startPhoto(ex.id)); body.querySelector('[data-walk-to]').addEventListener('click',()=>{const p=ex.grp.position; const f=V3(Math.sin(ex.grp.rotation.y),0,Math.cos(ex.grp.rotation.y)); walkTo(p.clone().addScaledVector(f,.5).setY(TOP));}); body.querySelector('[data-island]').addEventListener('click',e=>selectIsland(e.currentTarget.dataset.island));}
- function renderExpertCard(){const ex=expertMap[state.sel.id]; if(ex.star)return renderStarCard(ex); const isl=islandMap[ex.isl]; $('#cardIcon').textContent=ex.ic; $('#cardEyebrow').textContent=`品類達人・在 ${isl.name}`; $('#cardTitle').textContent=ex.name;
+ function renderExpertCard(){const ex=expertMap[state.sel.id]; if(ex.star)return renderStarCard(ex); const isl=islandMap[ex.isl]; $('#cardIcon').textContent=ex.ic; $('#cardEyebrow').textContent=`${ex.nick?ex.name:'品類達人'}・在 ${isl.name}`; $('#cardTitle').textContent=ex.nick||ex.name;
   const L=exLines(ex); const td=catToday(ex,state.day); const rg=catRanges(ex);
   const body=$('#cardBody'); body.innerHTML=`<div class="talk"><div class="say" id="exSay">${esc(L[exLine%L.length])}</div><div class="rowbtn"><button id="exNext" class="chip">${exLine<L.length-1?'繼續聽 →':'再聽一次'}</button><span class="eyebrow" style="align-self:center">${(exLine%L.length)+1}／${L.length}</span></div></div>
    ${td?`<div><div class="eyebrow" style="margin-bottom:6px">11/${state.day} 品類日活動 ${catNew(ex,state.day)?'<span class="new" style="font:700 9px var(--mono);background:var(--momo);color:#fff;border-radius:999px;padding:1px 6px;letter-spacing:1px">NEW</span>':''}</div><div class="chips"><span class="chip">${esc(td[0])}</span><span class="chip">${esc(td[1])}</span></div></div>`:`<p>11/${state.day} 沒有品類日排程，分會場常態優惠照常。</p>`}
@@ -4737,14 +4776,14 @@ async function main(){
   const heart=mk(new THREE.SphereGeometry(.02,8,8),P); heart.position.set(0,.14,-.09); g.add(heart);
   const sh=new THREE.Mesh(new THREE.CircleGeometry(.15,14).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:0x000,transparent:true,opacity:.22,depthWrite:false})); sh.position.y=.012; momoco.add(sh);
   const hit=new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,.75,8),new THREE.MeshBasicMaterial({visible:false})); hit.position.y=.37; hit.userData.momoco=true; momoco.add(hit); pickables.push(hit); momoco.userData.g=g;
-  const ne=document.createElement('div'); ne.className='nameplate'; ne.innerHTML='<i></i>momo co'; const no=new CSS2DObject(ne); no.position.set(0,.82,0); momoco.add(no); const bub=document.createElement('div'); bub.className='bubble'; const bo=new CSS2DObject(bub); bo.position.set(0,1.0,0); bo.visible=false; momoco.add(bo); momoco.userData.bubble=bo;}
- function npcWander(N){const npc=N.g,st=N.st; const isl=islands[Math.floor(Math.random()*islands.length)]; const a=Math.random()*Math.PI*2,r=.5+Math.random()*.8; const tgt=V3(isl.cx+Math.cos(a)*r,TOP,isl.cz+Math.sin(a)*r); if(!onGround(tgt.x,tgt.z))return; const p0=nearestNode(npc.position),p1=nearestNode(tgt); const pts=dijkstra(p0,p1).map(i=>nodes[i].clone().setY(TOP)); pts.push(tgt); if(pts.length&&npc.position.distanceTo(pts[0])<.15)pts.shift(); st.path=pts; st.seg=0;}
+  const ne=document.createElement('div'); ne.className='nameplate'; ne.innerHTML='<i></i>momo co'; const no=new CSS2DObject(ne); no.position.set(0,.82,0); momoco.add(no); momoco.userData.plate=no; const bub=document.createElement('div'); bub.className='bubble'; const bo=new CSS2DObject(bub); bo.position.set(0,1.0,0); bo.visible=false; momoco.add(bo); momoco.userData.bubble=bo;}
+ function npcWander(N){const npc=N.g,st=N.st; let isl=islands[Math.floor(Math.random()*islands.length)]; if(N.key==='jeremy'){ /* 七成機率往玩家所在的島或鄰島走，三成隨機 */ let me=null,md=1e9; islands.forEach(o=>{const dd=Math.hypot(o.cx-avatar.position.x,o.cz-avatar.position.z); if(dd<md){md=dd;me=o;}}); if(me&&Math.random()<.7){const pool=[me,...(me.neighbors||[])]; isl=pool[Math.floor(Math.random()*pool.length)];}} const a=Math.random()*Math.PI*2,r=.5+Math.random()*.8; const tgt=V3(isl.cx+Math.cos(a)*r,TOP,isl.cz+Math.sin(a)*r); if(!onGround(tgt.x,tgt.z))return; const p0=nearestNode(npc.position),p1=nearestNode(tgt); const pts=dijkstra(p0,p1).map(i=>nodes[i].clone().setY(TOP)); pts.push(tgt); if(pts.length&&npc.position.distanceTo(pts[0])<.15)pts.shift(); st.path=pts; st.seg=0;}
  function stepNPC(N,dt,t){const npc=N.g,st=N.st; const g=npc.userData.g; {const bo=npc.userData.bubble; const selM=state.sel&&state.sel.type===N.key; const d=camera.position.distanceTo(npc.position); const show=!state.photo&&!tour.on&&(selM||d<N.near); if(bo.visible!==show)bo.visible=show; if(show){const L=N.lines(); const txt=N.found&&!N.found()?N.tease:L[selM?N.line()%L.length:Math.floor(t/6)%L.length]; if(bo.element.textContent!==txt)bo.element.textContent=txt;}} st.moving=false; const busy=(state.photo&&!st.coming)||avatarState.photoPending||st.hold>0; if(st.hold>0)st.hold-=dt;
   if(!busy&&!tour.on){ if(st.path.length&&st.seg<st.path.length){const tgt=st.path[st.seg]; const d=tgt.clone().sub(npc.position); d.y=0; const L=d.length(),sp=(st.coming?2.4:N.speed)*dt; if(L<=sp){npc.position.copy(tgt); st.seg++; if(st.seg>=st.path.length){st.path=[]; st.wait=4+Math.random()*6; if(st.coming){st.coming=false; st.hold=60; photoBar.querySelector('span').textContent='📸 拍照模式：截圖即可保存'; photoFrame();}}} else {npc.position.addScaledVector(d.normalize(),sp); st.ry=Math.atan2(d.x,d.z); st.moving=true;}} else {st.wait-=dt; if(st.wait<=0)npcWander(N);} }
   g.position.y=st.moving?Math.abs(Math.sin(t*9))*.03:Math.sin(t*2.2)*.012; g.rotation.z=st.moving?Math.sin(t*9)*.06:Math.sin(t*1.1)*.03;
   if(state.photo&&state.photoWith===N.photoKey){const d=camera.position.clone().sub(npc.position); st.ry=Math.atan2(d.x,d.z);} let dr=st.ry-npc.rotation.y; dr=Math.atan2(Math.sin(dr),Math.cos(dr)); npc.rotation.y+=dr*Math.min(1,dt*8);}
  function stepMomoco(dt,t){stepNPC(NPC_MOMOCO,dt,t);}
- function stepJeremy(dt,t){stepNPC(NPC_JEREMY,dt,t); const pl=jeremy.userData.plate; const vis=jrFound()&&!state.photo&&!tour.on; if(pl.visible!==vis)pl.visible=vis; if(state.sel&&state.sel.type==='jeremy'){const d=camera.position.clone().sub(jeremy.position); jrState.ry=Math.atan2(d.x,d.z);}}
+ function stepJeremy(dt,t){stepNPC(NPC_JEREMY,dt,t); const pl=jeremy.userData.plate; const vis=jrFound()&&!state.photo&&!tour.on&&camera.position.distanceTo(controls.target)<14; if(pl.visible!==vis)pl.visible=vis; if(state.sel&&state.sel.type==='jeremy'){const d=camera.position.clone().sub(jeremy.position); jrState.ry=Math.atan2(d.x,d.z);}}
  const MC_LINES=['嗨！我是 momo co，雙11 我最熟了，想省錢跟我走。','Super 寵愛 10 大好康：天天抽 iPhone、滿額登記送 mo幣、mo卡最高回饋 11,111，一次看齊。','官方攻略把 14 天的重點都整理好了，先看攻略再下單最划算。','雙11 主會場每天都有新的限時下殺，記得回來逛。','偷偷說：島上藏了一位購物達人 Jeremy，穿深藍西裝打淺藍領帶、提著 momo 袋到處走，找到他會把所有攻略告訴你。'];
  let mcLine=0;
  const MC_LINKS=[['💖','Super 寵愛 10 大好康','https://preeminent-kashata-fba872.netlify.app/#super'],['📖','雙11 官方攻略','https://momo.dm/ia3Zfa'],['🏟️','雙11 主會場','https://momo.dm/jvmvyu']];
@@ -4766,7 +4805,7 @@ async function main(){
   if(CART.amount&&CALC){const bd=bestDay(); L.push(`你這筆 ${fmt(CART.amount)}：今天預估回饋 ${fmt(CALC.total)}${bd&&bd!==d?`，但 11/${bd} 買可以拿到 ${fmt(CALC_ALL[bd-1].total)}，等得了就等`:bd===d?'，而且今天就是最划算的一天，直接買':''}。`);} else L.push('先到「角色 → 購物車」填預計金額，我直接幫你算哪一天買最划算。');
   L.push(JR_FIXED[1],JR_FIXED[2],JR_FIXED[3],JR_FIXED[4]); return L;}
  const JR_LINKS=[['📖','雙11 官方攻略','https://momo.dm/ia3Zfa'],['🛍️','全品類好物懶人包','https://preeminent-kashata-fba872.netlify.app/'],['💖','Super 寵愛 10 大好康','https://preeminent-kashata-fba872.netlify.app/#super'],['🏟️','雙11 主會場','https://momo.dm/jvmvyu']];
- const NPC_JEREMY={key:'jeremy',photoKey:'jeremy',g:jeremy,st:jrState,near:4.5,speed:.75,lines:jrLines,line:()=>jrLine,found:jrFound,tease:'嘿，這邊！找到我就有攻略。'};
+ const NPC_JEREMY={key:'jeremy',photoKey:'jeremy',g:jeremy,st:jrState,get near(){return jrFound()?6:8.5;},speed:.75,lines:jrLines,line:()=>jrLine,found:jrFound,tease:'嘿，這邊！找到我就有攻略。'};
  function selectJeremy(){jrSetFound(); state.cardHidden=false; jrLine=0; setSel({type:'jeremy',id:'jeremy'}); const d=camera.position.clone().sub(jeremy.position).setY(0).setLength(2.2); flyTo(jeremy.position.clone().add(d).setY(TOP+1.0),jeremy.position.clone().setY(TOP+.38)); if(isMobile())mobileShow(null);}
  function renderJeremyCard(){$('#cardIcon').textContent='🕶️'; $('#cardEyebrow').textContent='隱藏角色・購物達人'; $('#cardTitle').textContent='Jeremy'; jrState.hold=Math.max(jrState.hold,20); const L=jrLines();
   $('#cardBody').innerHTML=`<div class="talk"><div class="say">${esc(L[jrLine%L.length])}</div><div class="rowbtn"><button id="jrNext" class="chip">${jrLine<L.length-1?'繼續聽 →':'再聽一次'}</button><span class="eyebrow" style="align-self:center">${(jrLine%L.length)+1}／${L.length}</span></div></div>
@@ -4779,9 +4818,10 @@ async function main(){
   $('#cardBody').innerHTML=`<div class="talk"><div class="say">${esc(MC_LINES[mcLine%MC_LINES.length])}</div><div class="rowbtn"><button id="mcNext" class="chip">${mcLine<MC_LINES.length-1?'繼續聽 →':'再聽一次'}</button><span class="eyebrow" style="align-self:center">${(mcLine%MC_LINES.length)+1}／${MC_LINES.length}</span></div></div>
    <div class="ctas">${MC_LINKS.map(([ic,n,u])=>`<a class="cta${n.includes('主會場')?'':' alt'}" href="${u}" target="_blank" rel="noopener">${ic} ${esc(n)} ↗</a>`).join('')}</div>
    <details class="rg"><summary>關於 momo co</summary><p style="margin:6px 0">來自 momo 網頁底下 wowo 星球的桃子，世界末日來臨時從網路河流漂來的桃子裡出生，終結了黑魔法師的黑魔法，讓世界恢復平靜。</p><ul class="facts"><li>Mo星疤痕：有不正義的事就會發亮警告</li><li>momo 魔法棒：桃心水晶會發出彩色光芒</li><li>尖端處：驚喜蒐集最豐富的地方</li><li>領巾：澆水就會變大變成翅膀</li><li>屁股上有個愛心胎記</li></ul></details>
-   <div class="chips"><button class="chip" id="mcPhoto">📸 與 momo co 合照</button><button class="chip cream" id="mcWalk">☺ 角色走過去</button></div>`;
+   <div class="chips"><button class="chip" id="mcPhoto">📸 與 momo co 合照</button><button class="chip cream" id="mcWalk">☺ 角色走過去</button><button class="chip cream" id="mcFindJr">🕶️ 帶我去找 Jeremy</button></div>`;
   $('#mcNext').addEventListener('click',()=>{mcLine=(mcLine+1)%MC_LINES.length; renderMomocoCard();});
-  $('#mcPhoto').addEventListener('click',()=>startPhoto(true)); $('#mcWalk').addEventListener('click',()=>{mcState.hold=25; mcState.path=[]; walkTo(photoSpot());});}
+  $('#mcFindJr').addEventListener('click',()=>{jrState.hold=40; jrState.path=[]; const d=V3(Math.sin(jeremy.rotation.y),0,Math.cos(jeremy.rotation.y)); const right=V3(d.z,0,-d.x); walkTo(jeremy.position.clone().addScaledVector(right,.45).setY(TOP)); if(isMobile())mobileShow(null); const t=document.createElement('div'); t.className='walkhint'; t.style.zIndex=40; t.textContent='🍑 momo co：他剛剛往那邊去了，跟著走！'; document.body.appendChild(t); setTimeout(()=>t.remove(),3000);});
+ $('#mcPhoto').addEventListener('click',()=>startPhoto(true)); $('#mcWalk').addEventListener('click',()=>{mcState.hold=25; mcState.path=[]; walkTo(photoSpot());});}
  const photoSpot=()=>{const d=V3(Math.sin(momoco.rotation.y),0,Math.cos(momoco.rotation.y)); const right=V3(d.z,0,-d.x); return momoco.position.clone().addScaledVector(right,.42).setY(TOP);};
 
  // ---------- 拍照模式 ----------
@@ -4791,7 +4831,7 @@ async function main(){
   avatarState.walking=false; if(state.walkMode)setWalkMode(false); if(isMobile())mobileShow(null);
   if(typeof withMomoco==='string'&&withMomoco!=='jeremy'){const ex=expertMap[withMomoco]; const st=ex.grp; const f=V3(Math.sin(st.rotation.y),0,Math.cos(st.rotation.y)); const side=V3(f.z,0,-f.x); let spot=st.position.clone().addScaledVector(side,-.42).addScaledVector(f,.08); if(!onGround(spot.x,spot.z))spot=st.position.clone().addScaledVector(side,.42).addScaledVector(f,.08); spot.y=TOP;
    if(avatar.position.distanceTo(spot)>4.5){const dir=avatar.position.clone().sub(spot).setY(0).normalize(); const jump=spot.clone().addScaledVector(dir,2.0); const n=nodes[nearestNode(jump)]; avatar.position.set(n.x,TOP,n.z);}
-   if(avatar.position.distanceTo(spot)>.2){avatarState.photoPending=true; walkTo(spot); photoBar.querySelector('span').textContent=`🚶 ${AV.name||'小mo'} 正在走向 ${ex.name}…`; photoFrame(true);} else photoFrame(); return;}
+   if(avatar.position.distanceTo(spot)>.2){avatarState.photoPending=true; walkTo(spot); photoBar.querySelector('span').textContent=`🚶 ${AV.name||'小mo'} 正在走向 ${ex.nick||ex.name}…`; photoFrame(true);} else photoFrame(); return;}
   if(withMomoco){const NPC=withMomoco==='jeremy'?{g:jeremy,st:jrState,msg:'🕶️ Jeremy 正在跑過來…'}:{g:momoco,st:mcState,msg:'🍑 momo co 正在跑過來…'}; NPC.st.hold=0; const fwd=camera.position.clone().sub(avatar.position).setY(0).normalize(); const side=V3(fwd.z,0,-fwd.x); let spot=avatar.position.clone().addScaledVector(side,.42); if(!onGround(spot.x,spot.z))spot=avatar.position.clone().addScaledVector(side,-.42); spot.y=TOP;
    if(NPC.g.position.distanceTo(spot)>3.5){ /* 太遠就先「咻」到附近再跑最後一段 */ const dir=NPC.g.position.clone().sub(spot).setY(0).normalize(); let jump=spot.clone().addScaledVector(dir,2.2); const n=nodes[nearestNode(jump)]; NPC.g.position.set(n.x,TOP,n.z);}
    if(NPC.g.position.distanceTo(spot)>.2){const a=nearestNode(NPC.g.position),b=nearestNode(spot); const pts=dijkstra(a,b).map(i=>nodes[i].clone().setY(TOP)); pts.push(spot); NPC.st.path=pts; NPC.st.seg=0; NPC.st.coming=true; photoBar.querySelector('span').textContent=NPC.msg; photoFrameSolo();} else photoFrame();} else photoFrame();}
@@ -4844,7 +4884,7 @@ async function main(){
  const _mA=new THREE.Matrix4(),_mB=new THREE.Matrix4(),_mC=new THREE.Matrix4();
  function updateFlowsVis(){const rel=new Set(relatedFlows().map(f=>f.id)); let any=false; DATA.flows.forEach(f=>{const v=flowActive(f)&&(state.showFlows||rel.has(f.id)); flowObjs[f.id].visible=v; any=any||v;}); $('#legend').hidden=!any;}
  function updateBadges(){const ns=newSet(state.day),act=activeSet(state.day); const dist=camera.position.distanceTo(controls.target); const selIsl=state.sel&&!['avatar','momoco','jeremy','expert','days'].includes(state.sel.type)?(state.sel.type==='island'?state.sel.id:state.sel.type==='item'?itemMap[state.sel.id].island.id:null):null;
-  Object.entries(newBadges).forEach(([id,o])=>{const it=itemMap[id]; const near=dist<(isMobile()?16:21); const v=state.showNew&&act.has(id)&&(selIsl?(selIsl===it.island.id&&!!CALC):(near||(ns.has(id)&&dist<40))); o.visible=v; if(v){const isNew=ns.has(id); const cr=CALC?CALC.items[id]:null; let txt,cls=''; if(cr&&(near||selIsl===it.island.id)){ if(cr.ok){txt='✓ '+(cr.amt?'可拿 '+fmt(cr.amt):cr.gift||'符合');cls='ok';} else if(cr.need>0&&cr.need<=CART.amount*.3+500){txt='再買 '+fmt(cr.need)+(cr.nextAmt?' 可拿 '+fmt(cr.nextAmt):cr.giftNext?' 送'+cr.giftNext:'');cls='near';} else txt=esc(headline(it)); } else txt=(near||selIsl===it.island.id)?esc(headline(it)):(isNew?'NEW':''); o.element.innerHTML=(isNew&&txt!=='NEW'?'<b>NEW</b>':'')+txt; o.element.className='tag3d'+(cls?' '+cls:''); o.element.classList.toggle('dimmed',(!!selIsl&&selIsl!==it.island.id)||(cr&&!cr.ok&&cls!=='near'));}});}
+  Object.entries(newBadges).forEach(([id,o])=>{const it=itemMap[id]; const near=dist<(isMobile()?16:21); const v=state.showNew&&act.has(id)&&!!selIsl&&selIsl===it.island.id&&(near||!!CALC); o.visible=v; if(v){const isNew=ns.has(id); const cr=CALC?CALC.items[id]:null; let txt,cls=''; if(cr&&(near||selIsl===it.island.id)){ if(cr.ok){txt='✓ '+(cr.amt?'可拿 '+fmt(cr.amt):cr.gift||'符合');cls='ok';} else if(cr.need>0&&cr.need<=CART.amount*.3+500){txt='再買 '+fmt(cr.need)+(cr.nextAmt?' 可拿 '+fmt(cr.nextAmt):cr.giftNext?' 送'+cr.giftNext:'');cls='near';} else txt=esc(headline(it)); } else txt=(near||selIsl===it.island.id)?esc(headline(it)):(isNew?'NEW':''); o.element.innerHTML=(isNew&&txt!=='NEW'?'<b>NEW</b>':'')+txt; o.element.className='tag3d'+(cls?' '+cls:''); o.element.classList.toggle('dimmed',(!!selIsl&&selIsl!==it.island.id)||(cr&&!cr.ok&&cls!=='near'));}});}
 
  // ===================== 回饋試算引擎（純函式；規則依 雙11活動.xlsx） =====================
  const PAY_OPTS=[['none','未選'],['mocard','mo卡'],['cathay','國泰世華'],['cathay_cube','國泰 CUBE卡'],['esun','玉山'],['esun_uni','玉山 unicard'],['dbs','星展'],['first','第一'],['union','聯邦'],['sinopac','永豐'],['other','其他']];
@@ -4925,6 +4965,7 @@ async function main(){
  function renderDays(){const box=$('#days'); if(!box.children.length){DATA.days.forEach(dd=>{const b=document.createElement('button'); b.className='day'+(dd.peak?' peak':''); b.innerHTML=`<b>11/${dd.d}</b><small>${esc(dd.tag||'　')}</small>`; b.addEventListener('click',()=>{if(state.playing)setPlay(false); setDay(dd.d);}); box.appendChild(b);});}
   const bd=bestDay(),mx=CALC_ALL?Math.max(1,...CALC_ALL.map(c=>c.total)):1;
   [...box.children].forEach((b,i)=>{b.classList.toggle('on',i+1===state.day); b.classList.toggle('best',bd===i+1); let bar=b.querySelector('.bar'); if(CALC_ALL){if(!bar){bar=document.createElement('i');bar.className='bar';b.appendChild(bar);} bar.style.transform=`scaleX(${(CALC_ALL[i].total/mx).toFixed(2)})`;} else if(bar)bar.remove();}); const on=box.children[state.day-1]; if(on&&isMobile())on.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});}
+ $('#todayLine').addEventListener('click',e=>{e.stopPropagation(); openDaysCard();});
  function renderTodayLine(){const dd=dayInfo(state.day),a=activeSet(state.day).size,n=newSet(state.day).size; $('#todayLine').innerHTML=`<b>11/${dd.d}</b>${dd.tag?`<span class="tag">${esc(dd.tag)}</span>`:''}<div style="margin-top:4px;color:var(--ink2)">${a} 項優惠生效${n?`・<b style="color:var(--momo);font-size:12px">${n} 項今日新增</b>`:''}</div>`;}
 
  // ---------- 相機 ----------
@@ -4952,7 +4993,8 @@ async function main(){
  $('#tgTour').addEventListener('click',startTour);
  function flyTo(pos,tgt){if(reduced.matches){camera.position.copy(pos);controls.target.copy(tgt);return;} fly={p0:camera.position.clone(),t0:controls.target.clone(),p1:pos,t1:tgt,t:0};}
  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
- function overview(){stopFollow(); state.bird=false;$('#tgBird').classList.remove('on'); const ar=innerWidth/innerHeight,d=ar>1.5?40:ar>.9?50:ar>.6?72:80; const tgt=center.clone(); if(isMobile()){tgt.addScaledVector(V3(DIR.x,0,DIR.z).normalize(),d*.2);} flyTo(tgt.clone().addScaledVector(DIR,d),tgt);}
+ const ovParams=()=>{const ar=innerWidth/innerHeight; const portrait=ar<.75; const d=ar>1.5?40:ar>.9?50:portrait?46:68; const dir=portrait?V3(.80,.58,.16).normalize():DIR; const tgt=center.clone(); if(isMobile()&&!portrait)tgt.addScaledVector(V3(DIR.x,0,DIR.z).normalize(),d*.2); if(portrait)tgt.x+=1.0; return {d,dir,tgt};};
+ function overview(){stopFollow(); state.bird=false;$('#tgBird').classList.remove('on'); const {d,dir,tgt}=ovParams(); flyTo(tgt.clone().addScaledVector(dir,d),tgt);}
  function focusOn(x,z,off){stopFollow();const t=V3(x,TOP,z); const pos=t.clone().add(off); const fwd=V3(-off.x,0,-off.z).normalize(); if(!isMobile()&&!$('#card').hidden){ const right=V3(-fwd.z,0,fwd.x); t.addScaledVector(right,-1.5); pos.addScaledVector(right,-1.5);} if(isMobile()){const k=off.length()*.22; t.addScaledVector(fwd,-k); pos.addScaledVector(fwd,-k);} flyTo(pos,t);}
  function birdView(){flyTo(controls.target.clone().add(V3(.01,42,6)),controls.target.clone());}
  function zoomCam(f){const v=camera.position.clone().sub(controls.target); const d=clamp(v.length()*f,controls.minDistance,controls.maxDistance); flyTo(controls.target.clone().addScaledVector(v.normalize(),d),controls.target.clone());}
@@ -4964,7 +5006,7 @@ async function main(){
  // ---------- 選取 ----------
  function clearPins(){pinLayer.forEach(o=>{scene.remove(o);o.element.remove();}); pinLayer.length=0; pinLines.visible=false; pinIsl=null;}
  // 沒選島時：鏡頭靠近哪座島，就自動掛上那座島的建物名稱標籤，讓人知道可以點
- let proxT=0; function proximityPins(dt){proxT+=dt; if(proxT<.25)return; proxT=0; const sel=state.sel; if(sel&&['island','item'].includes(sel.type))return; if(state.photo||tour.on){if(pinIsl)clearPins();return;} const d=camera.position.distanceTo(controls.target); if(d>30){if(pinIsl)clearPins();return;} let best=null,bd=1e9; islands.forEach(isl=>{const dd=Math.hypot(isl.cx-controls.target.x,isl.cz-controls.target.z); if(dd<bd){bd=dd;best=isl;}}); if(bd>3.2){if(pinIsl)clearPins();return;} if(best!==pinIsl)buildPins(best);}
+ let proxT=0; function proximityPins(dt){proxT+=dt; if(proxT<.25)return; proxT=0; const sel=state.sel; if(sel&&['island','item'].includes(sel.type))return; if(pinIsl)clearPins(); return; /* 全景不再依距離冒建物標籤，進島才有 */ if(state.photo||tour.on){if(pinIsl)clearPins();return;} const d=camera.position.distanceTo(controls.target); if(d>30){if(pinIsl)clearPins();return;} let best=null,bd=1e9; islands.forEach(isl=>{const dd=Math.hypot(isl.cx-controls.target.x,isl.cz-controls.target.z); if(dd<bd){bd=dd;best=isl;}}); if(bd>3.2){if(pinIsl)clearPins();return;} if(best!==pinIsl)buildPins(best);}
  let pinIsl=null;
  function buildPins(isl){clearPins(); pinIsl=isl; const pos=[]; isl.items.forEach((it,i)=>{const el=document.createElement('div'); el.className='pin'+(state.sel&&state.sel.id===it.id?' on':''); const on=activeSet(state.day).has(it.id); el.innerHTML=`<b>${String.fromCharCode(0x2460+i)}</b><span>${esc(it.name)}${on?'':'<small>未生效</small>'}</span>`; el.classList.toggle('off',!on); el.addEventListener('click',e=>{e.stopPropagation();selectItem(it.id);}); const o=new CSS2DObject(el); o.position.set(it.wx,it.top+.32,it.wz); scene.add(o); pinLayer.push(o); pos.push(it.wx,it.top,it.wz,it.wx,it.top+.3,it.wz);});
   pinLines.geometry.setAttribute('position',new THREE.Float32BufferAttribute(pos,3)); pinLines.geometry.computeBoundingSphere(); pinLines.visible=true;}
@@ -5016,9 +5058,18 @@ async function main(){
  const COMMON_LINKS=[['🏟️','雙11 主會場','https://momo.dm/jvmvyu'],['📖','雙11 官方攻略','https://momo.dm/ia3Zfa'],['🛍️','好物懶人包','https://preeminent-kashata-fba872.netlify.app/#super']];
  const commonLinks=()=>`<div><div class="eyebrow" style="margin-bottom:6px">看更多</div><div class="ctas">${COMMON_LINKS.map(([ic,n,u],i)=>`<a class="cta${i?' alt':''}" href="${u}" target="_blank" rel="noopener">${ic} ${esc(n)} ↗</a>`).join('')}</div></div>`;
  function renderCard(){const card=$('#card'),s=state.sel; card.classList.toggle('tall',!!s&&(s.type==='avatar'||s.type==='days')); if(!s){ if(state.cardHidden||(isMobile()&&!state.todayOpen)){card.hidden=true;} else renderToday(); return;} card.hidden=false; const body=$('#cardBody');
-  if(s.type==='island'){const isl=islandMap[s.id]; $('#cardIcon').textContent=isl.icon; $('#cardEyebrow').textContent='優惠島 '+isl.no; $('#cardTitle').textContent=isl.name; const act=activeSet(state.day),ns=newSet(state.day);
-   body.innerHTML=`<p>${esc(isl.summary)}</p>${dayLine(isl.items.flatMap(i=>i.days))}<div><div class="eyebrow" style="margin-bottom:6px">細項（11/${state.day}）</div><div class="rows">${isl.items.map((it,i)=>`<button class="row" data-item="${it.id}"><span class="no">${String.fromCharCode(0x2460+i)}</span><span class="nm${act.has(it.id)?'':' off'}">${esc(it.name)}</span>${ns.has(it.id)?'<span class="new">NEW</span>':act.has(it.id)?'':'<span class="eyebrow" style="letter-spacing:0">未生效</span>'}</button>`).join('')}</div></div>
-    <div class="chips"><button class="chip" data-walk="${isl.id}">☺ 角色走過去</button></div>${relatedFlows().length?`<div><div class="eyebrow" style="margin-bottom:6px">堆疊關係</div><div class="chips">${relatedFlows().map(f=>`<button class="chip${flowActive(f)?'':' cream'}" data-flow="${f.id}">${esc(f.label)}</button>`).join('')}</div></div>`:''}${commonLinks()}`;}
+  if(s.type==='island'){const isl=islandMap[s.id]; $('#cardIcon').textContent=isl.icon; $('#cardEyebrow').textContent='優惠島 '+isl.no; $('#cardTitle').textContent=isl.name; const act=activeSet(state.day),ns=newSet(state.day); const idx=islands.indexOf(isl); const tab=state.islTab||'today';
+   const row=(it,i,showDays)=>{const on=act.has(it.id); const cr=CALC&&on?CALC.items[it.id]:null; const sub=showDays?(it.days.length>=14?'11/1–11/14':dayRanges([...new Set(it.days)])):(cr?(cr.ok?'✓ '+(cr.amt?'可拿 '+fmt(cr.amt):cr.gift||'符合'):cr.need>0?'再買 '+fmt(cr.need):esc(headline(it))):esc(headline(it))); return `<button class="row" data-item="${it.id}"><span class="no">${String.fromCharCode(0x2460+i)}</span><span class="nm${on?'':' off'}"><b>${esc(it.name)}</b><div class="sub${cr&&cr.ok?' ok':''}">${sub}</div></span>${ns.has(it.id)?'<span class="new">NEW</span>':on?'':'<span class="eyebrow" style="letter-spacing:0">未生效</span>'}</button>`;};
+   const todayItems=isl.items.map((it,i)=>[it,i]).filter(([it])=>act.has(it.id)).sort((a,b)=>(ns.has(b[0].id)?1:0)-(ns.has(a[0].id)?1:0));
+   const exs=EXPERTS.filter(e=>e.isl===isl.id); const links=[]; isl.items.forEach(it=>(it.urls||(it.url?[[it.name,it.url]]:[])).forEach(([n,u])=>{if(!links.some(l=>l[1]===u))links.push([n,u]);}));
+   let tabHtml='';
+   if(tab==='today')tabHtml=(todayItems.length?`<div class="rows">${todayItems.map(([it,i])=>row(it,i,false)).join('')}</div>`:`<p>11/${state.day} 這座島沒有生效中的活動，切到「全部活動」看其他日期。</p>`)+`<div class="chips"><button class="chip cream" data-walk="${isl.id}">☺ 角色走過去</button>${CALC?'':'<button class="chip" data-calc>💰 算這座島能拿多少</button>'}</div>`;
+   else if(tab==='all')tabHtml=`<div class="rows">${isl.items.map((it,i)=>row(it,i,true)).join('')}</div>${relatedFlows().length?`<details class="rg"><summary>堆疊關係（${relatedFlows().length}）</summary><div class="chips" style="margin-top:8px">${relatedFlows().map(f=>`<button class="chip${flowActive(f)?'':' cream'}" data-flow="${f.id}">${esc(f.label)}</button>`).join('')}</div></details>`:''}`;
+   else if(tab==='experts')tabHtml=exs.length?`<div class="rows">${exs.map(ex=>`<button class="row" data-expert="${ex.id}"><span class="no">${ex.ic}</span><span class="nm"><b>${esc(ex.nick||ex.name)}</b><div class="sub">${ex.star?'雙11 活動大使':esc(ex.name)}${catToday(ex,state.day)?'・今天：'+esc(catToday(ex,state.day)[0]):''}</div></span></button>`).join('')}</div>`:'<p>這座島沒有駐點達人，去其他島找找。</p>';
+   else tabHtml=`${links.length?`<div><div class="eyebrow" style="margin-bottom:6px">這座島的活動頁</div><div class="ctas">${links.map(([n,u],i)=>`<a class="cta${i?' alt':''}" href="${u}" target="_blank" rel="noopener">🎟️ ${esc(n)} ↗</a>`).join('')}</div></div>`:''}${commonLinks()}`;
+   body.innerHTML=`<div class="isnav"><button data-isl-nav="-1" aria-label="上一座島">‹</button><span>${idx+1}／${islands.length}・${(()=>{const u=[...new Set(isl.items.flatMap(i=>i.days))]; return u.length>=14?'11/1–11/14 全檔期':dayRanges(u);})()}</span><button data-isl-nav="1" aria-label="下一座島">›</button></div><p class="lead">${esc(isl.summary)}</p>
+    <div class="tabs2">${[['today','今天'],['all','全部活動'],['experts','達人'],['links','攻略']].map(([k,n])=>`<button class="${tab===k?'on':''}" data-itab="${k}">${n}${k==='today'&&todayItems.length?` <i>${todayItems.length}</i>`:''}</button>`).join('')}</div>${tabHtml}`;
+   body.querySelectorAll('[data-itab]').forEach(b=>b.addEventListener('click',()=>{state.islTab=b.dataset.itab; renderCard();})); body.querySelectorAll('[data-isl-nav]').forEach(b=>b.addEventListener('click',()=>{const n=islands.length; selectIsland(islands[(idx+(+b.dataset.islNav)+n)%n].id);})); body.querySelectorAll('[data-expert]').forEach(b=>b.addEventListener('click',()=>selectExpert(b.dataset.expert))); const cb=body.querySelector('[data-calc]'); if(cb)cb.addEventListener('click',()=>{avTab='cart'; openAvatar();});}
   else if(s.type==='item'){const it=itemMap[s.id],isl=it.island; $('#cardIcon').textContent=isl.icon; $('#cardEyebrow').textContent=isl.no+' '+isl.name; $('#cardTitle').textContent=it.name; const act=it.days.includes(state.day);
    // 事實句拆成「條件 → 回饋」兩欄；拆不出的當備註。同一資訊只出現一次。
    // 先把「；」「／」串在一起的多階拆開（後半缺前綴時補上前半的前綴，例如「分期 」）
@@ -5032,7 +5083,7 @@ async function main(){
    body.innerHTML=`${lead}${descDup?'':`<p>${esc(it.desc)}</p>`}${cr?`<div>${resChip(cr)}${cr.note?`<span style="font-size:12px;color:var(--ink2);margin-left:6px">${esc(cr.note)}</span>`:''}</div>`:''}
    ${rows.length?`<div class="lad">${rows.map(r=>`<div class="r ${rowCls(r)}${r.v.replace(/<[^>]*>/g,'').length>9?' long':''}"><span class="c">${esc(r.c)}</span><span class="v">${r.v}</span></div>`).join('')}</div>`:''}
    ${notes2.length?`<ul class="notes">${notes2.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:''}
-   ${dayLine(it.days)}${(it.urls||(it.url?[[`看活動頁：${it.name}`,it.url]]:[])).length?`<div class="ctas">${(it.urls||[[`看活動頁：${it.name}`,it.url]]).map(([n,u],i)=>`<a class="cta${i?' alt':''}" href="${u}" target="_blank" rel="noopener">🎟️ ${esc(n)} ↗</a>`).join('')}</div>`:''}${commonLinks()}<div class="chips"><button class="chip" data-island="${isl.id}">← 回到 ${esc(isl.name)}</button></div>`;}
+   ${dayLine(it.days)}${(it.urls||(it.url?[[`看活動頁：${it.name}`,it.url]]:[])).length?`<div class="ctas">${(it.urls||[[`看活動頁：${it.name}`,it.url]]).map(([n,u],i)=>`<a class="cta${i?' alt':''}" href="${u}" target="_blank" rel="noopener">🎟️ ${esc(n)} ↗</a>`).join('')}</div>`:''}<div class="chips"><button class="chip" data-island="${isl.id}">← 回到 ${esc(isl.name)}</button></div>`;}
   else if(s.type==='avatar'){renderAvatarCard(); return;}
   else if(s.type==='days'){renderDaysCard(); return;}
   else if(s.type==='momoco'){renderMomocoCard(); return;}
@@ -5049,7 +5100,7 @@ async function main(){
   if(state.tab==='islands'){list.innerHTML=islands.map(isl=>{const items=isl.items.filter(it=>!q||(it.name+it.desc+it.facts.join(' ')+isl.name).toLowerCase().includes(q)); if(!items.length)return ''; const on=isl.items.filter(it=>act.has(it.id)).length; const open=q?true:openState[isl.id]??(sel&&(sel.id===isl.id||(sel.type==='item'&&itemMap[sel.id].island===isl)));
     return `<details data-isl="${isl.id}" ${open?'open':''}><summary><span class="ic">${isl.icon}</span><span class="n" style="font:700 10px var(--mono);color:var(--momo)">${isl.no}</span>${esc(isl.name)}<span class="cnt"><b>${on}</b>/${isl.items.length}</span></summary><div class="rows">${items.map((it,i)=>`<button class="row${sel&&sel.id===it.id?' on':''}" data-item="${it.id}"><span class="no">${String.fromCharCode(0x2460+isl.items.indexOf(it))}</span><span class="nm${act.has(it.id)?'':' off'}">${esc(it.name)}</span>${ns.has(it.id)?'<span class="new">NEW</span>':''}</button>`).join('')}</div></details>`;}).join('');
    list.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{openState[d.dataset.isl]=d.open;}));}
-  else if(state.tab==='experts'){list.innerHTML=`<div class="rows">${jrFound()&&(!q||'jeremy購物達人隱藏'.includes(q))?`<button class="row${sel&&sel.type==='jeremy'?' on':''}" data-jeremy><span class="no">🕶️</span><span class="nm"><b>Jeremy</b><div style="font-size:11px;color:var(--ink2)">隱藏角色・購物達人・在島上到處走</div></span><span class="new">隱藏</span></button>`:''}${EXPERTS.filter(ex=>!q||(ex.name+ex.lines.join('')+ex.picks.map(p=>p[0]).join('')).toLowerCase().includes(q)).map(ex=>`<button class="row${sel&&sel.id===ex.id?' on':''}" data-expert="${ex.id}"><span class="no">${ex.ic}</span><span class="nm"><b>${esc(ex.name)}</b><div style="font-size:11px;color:var(--ink2)">${ex.star?'雙11 活動大使・':''}在 ${esc(islandMap[ex.isl].name)}${catToday(ex,state.day)?'・'+esc(catToday(ex,state.day).join('、')):''}</div></span>${catNew(ex,state.day)?'<span class="new">NEW</span>':''}</button>`).join('')}</div>`; list.querySelectorAll('[data-expert]').forEach(b=>b.addEventListener('click',()=>selectExpert(b.dataset.expert))); const jb=list.querySelector('[data-jeremy]'); if(jb)jb.addEventListener('click',()=>selectJeremy());}
+  else if(state.tab==='experts'){list.innerHTML=`<div class="rows">${jrFound()&&(!q||'jeremy購物達人隱藏'.includes(q))?`<button class="row${sel&&sel.type==='jeremy'?' on':''}" data-jeremy><span class="no">🕶️</span><span class="nm"><b>Jeremy</b><div style="font-size:11px;color:var(--ink2)">隱藏角色・購物達人・在島上到處走</div></span><span class="new">隱藏</span></button>`:''}${EXPERTS.filter(ex=>!q||((ex.nick||'')+ex.name+ex.lines.join('')+ex.picks.map(p=>p[0]).join('')).toLowerCase().includes(q)).map(ex=>`<button class="row${sel&&sel.id===ex.id?' on':''}" data-expert="${ex.id}"><span class="no">${ex.ic}</span><span class="nm"><b>${esc(ex.nick||ex.name)}</b><div style="font-size:11px;color:var(--ink2)">${ex.star?'雙11 活動大使・':ex.nick?esc(ex.name)+'・':''}在 ${esc(islandMap[ex.isl].name)}${catToday(ex,state.day)?'・'+esc(catToday(ex,state.day).join('、')):''}</div></span>${catNew(ex,state.day)?'<span class="new">NEW</span>':''}</button>`).join('')}</div>`; list.querySelectorAll('[data-expert]').forEach(b=>b.addEventListener('click',()=>selectExpert(b.dataset.expert))); const jb=list.querySelector('[data-jeremy]'); if(jb)jb.addEventListener('click',()=>selectJeremy());}
   else{list.innerHTML=`<div class="rows">${DATA.flows.filter(f=>!q||(f.label+f.desc).toLowerCase().includes(q)).map(f=>{const A=islandMap[f.from],B=islandMap[f.to];return `<button class="row${sel&&sel.id===f.id?' on':''}" data-flow="${f.id}" style="flex-wrap:wrap"><span class="nm" style="flex-basis:100%"><b>${esc(f.label)}</b><div style="font-size:11px;color:var(--ink2)">${A.icon} ${esc(A.name)} → ${B.icon} ${esc(B.name)}</div></span><span class="lvl ${f.level}">${{official:'可堆疊',thematic:'同享',pending:'待確認'}[f.level]}</span>${flowActive(f)?'':'<span class="eyebrow" style="letter-spacing:0">今日未生效</span>'}</button>`;}).join('')}</div>`;}
   list.querySelectorAll('[data-item]').forEach(b=>b.addEventListener('click',()=>selectItem(b.dataset.item))); list.querySelectorAll('[data-flow]').forEach(b=>b.addEventListener('click',()=>selectFlow(b.dataset.flow))); list.scrollTop=scroll;}
  function patchList(){const list=$('#list'),act=activeSet(state.day),ns=newSet(state.day);
@@ -5071,13 +5122,10 @@ async function main(){
  $('#btnList').addEventListener('click',()=>{$('#side').classList.toggle('hidden'); $('#btnList').classList.toggle('on',!$('#side').classList.contains('hidden'));});
  $('#btnHelp').addEventListener('click',()=>openIntro(false)); $('#btnAvatar').addEventListener('click',openAvatar);
   const SLIDES=[
-  {ic:'🏝️',k:'WELCOME',h:'歡迎來到 momo 雙11 優惠活動島',p:'11/1–11/14 的所有優惠，拼成十座島。每座島是一種優惠機制：mo幣、滿額贈、Super Junior 83Z 周邊、大獎、mo卡、銀行回饋、超取、綠活、moPro、免費領券。'},
-  {ic:'🏠',k:'ISLANDS',h:'點建物，看門檻與回饋',p:'島上每棟建物是一個細項。點它會飛過去，卡片列出門檻、回饋數字與生效日；頭上的標籤直接寫重點，例如「滿 $3,500 送 100」。'},
-  {ic:'📅',k:'DAYS',h:'選一天，島就換成那天的樣子',p:'底部日期軸自己選 11/1–11/14（不會自動跳）。當天生效的建物有顏色，沒生效的縮小變灰；NEW 是今天新增。11/5 mo卡日、11/8 超取日、11/10–11 高峰都有專屬天色。'},
-  {ic:'🧮',k:'CALCULATOR',h:'帶著金額逛島',p:'填你預計消費的金額、付款方式、取貨方式，島上就亮出「✓ 可拿 1,700」或「再買 $500 可拿 800」，並告訴你 14 天裡哪天買最划算。'},
-  {ic:'🧑‍🍳',k:'EXPERTS',h:'找 12 位品類達人聊聊',p:'3C、家電、家居餐廚、流行、美妝、日用、保健、美食、旅遊、圖書、看看買、跨境，每位達人站在不同島上。點他聽今天的品類活動與超強商品，一鍵連到分會場。'},
-  {ic:'☺',k:'CHARACTER',h:'打造角色，和 momo co 合照',p:'一鍵套身分、換髮型配件，角色會沿著步道走到各島，也可以開「逛島模式」用搖桿或 WASD 自由走，鏡頭貼身跟拍。momo co 會自己在島上逛，拍照分頁可以和他合照。'},
-  {ic:'🖱️',k:'CONTROLS',h:'怎麼操作',p:'',pDesk:'拖曳旋轉、滾輪縮放、右鍵拖曳平移；[ ] 切換日期、WASD 走路、Esc 關閉。趕時間就按「導覽」，60 秒自動帶你逛一圈。',pMob:'單指旋轉、雙指縮放與平移；底部分頁切換今日／日期／清單／角色，「更多」裡有逛島搖桿和 60 秒導覽。'}];
+  {ic:'🏝️',k:'WELCOME',h:'歡迎來到 momo 雙11 優惠活動島',p:'11/1–11/14 的優惠拼成十座島：mo幣、滿額贈、Super Junior 83Z 周邊、大獎、mo卡、銀行回饋、超取、綠活、moPro、免費領券。點一座島就開始逛。'},
+  {ic:'📅',k:'DAYS',h:'先選日期，島就換成那天的樣子',p:'點上方的日期切換 11/1–11/14。當天生效的建物有顏色，沒生效的縮小變灰；進島後點建物看門檻與回饋。'},
+  {ic:'🧮',k:'CALCULATOR',h:'想知道自己能拿多少？按「算回饋」',p:'填預計消費金額、付款與取貨方式，島上直接亮出「✓ 可拿」或「再買多少」，並告訴你 14 天哪天買最划算。角色與合照在「⋯」裡，想玩再開。'},
+  {ic:'🖱️',k:'CONTROLS',h:'怎麼操作',p:'',pDesk:'拖曳旋轉、滾輪縮放、右鍵拖曳平移；[ ] 切換日期、Esc 關閉。趕時間就按「▶ 導覽」，60 秒自動帶你逛一圈。',pMob:'單指旋轉、雙指縮放與平移；下方「全景／鳥瞰／清單」切換視角，「▶」是 60 秒導覽，「⋯」有角色、拍照與更多設定。'}];
  let slideIdx=0,introThenWizard=false;
  function openIntro(thenWizard){introThenWizard=thenWizard; slideIdx=0; renderIntro(); $('#intro').hidden=false;}
  function renderIntro(){const sl=SLIDES[slideIdx],last=slideIdx===SLIDES.length-1; $('#intro').innerHTML=`<div class="box"><div class="pic">${sl.ic}<small>${sl.k} · ${slideIdx+1}/${SLIDES.length}</small></div><h2>${esc(sl.h)}</h2><p>${esc(sl.pDesk?(isMobile()?sl.pMob:sl.pDesk):sl.p)}</p><div class="dots">${SLIDES.map((_,i)=>`<i class="${i===slideIdx?'on':''}"></i>`).join('')}</div><div class="btns">${last?'<span></span>':'<button id="inSkip">略過</button>'}<div style="display:flex;gap:6px">${slideIdx?'<button id="inPrev">←</button>':''}<button class="next" id="inNext">${last?(introThenWizard?'建立角色 →':'開始逛'):'下一步 →'}</button></div></div></div>`;
@@ -5086,16 +5134,24 @@ async function main(){
  addEventListener('keydown',e=>{if($('#intro').hidden)return; if(e.key==='ArrowRight'||e.key==='Enter'){$('#inNext').click();} if(e.key==='ArrowLeft'){const pv=$('#inPrev'); if(pv)pv.click();} if(e.key==='Escape')closeIntro();});
  document.querySelectorAll('.tools .nav').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.act; if(a==='zin')zoomCam(.7); if(a==='zout')zoomCam(1.4); if(a==='rot')rotateCam(Math.PI/4);}));
  // 手機分頁列
- const mtab=$('#mtab'); const mobilePanels={list:$('#side'),time:$('#hud')}; const morePanel=$('#more');
+ const mtab=$('#mtab'); const mobilePanels={list:$('#side')}; const morePanel=$('#more');
  // 手機抽屜：點拉柄或上滑 >30px → full；下滑 >30px → 半高 → 再下滑關閉
  function sheet(el,handle,onClose){let y0=null,full=false; const setFull=v=>{full=v; el.classList.toggle('full',v);}; handle.addEventListener('click',()=>setFull(!full));
   const start=e=>{y0=(e.touches?e.touches[0]:e).clientY;}; const end=e=>{if(y0===null)return; const y1=(e.changedTouches?e.changedTouches[0]:e).clientY; const dy=y1-y0; y0=null; if(dy<-30)setFull(true); else if(dy>30){if(full)setFull(false); else onClose();}};
   el.addEventListener('touchstart',e=>{if(e.target.closest('.handle,.head,.top'))start(e);},{passive:true}); el.addEventListener('touchend',end,{passive:true}); el.addEventListener('mousedown',e=>{if(e.target.closest('.handle'))start(e);}); el.addEventListener('mouseup',end);
   return {reset:()=>setFull(false)};}
  const sideSheet=sheet($('#side'),$('#sideHandle'),()=>mobileShow(null)); const cardSheet=sheet($('#card'),$('#cardHandle'),()=>{closeCard(); if(isMobile())mobileShow(null);});
- function mobileShow(name){ sideSheet.reset(); Object.entries(mobilePanels).forEach(([k,el])=>el.classList.toggle('hidden',k!==name)); morePanel.hidden=name!=='more'; if(name!=='today'){state.todayOpen=false; if(name&&name!=='more')closeCard();} else {state.todayOpen=true; state.cardHidden=false; setSel(null);} mtab.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.m===name));}
- mtab.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m; if(m==='avatar'){if(!state.wizard)avTab='look'; openAvatar(); b.classList.add('on'); return;} if(m==='overview'){closeCard();mobileShow(null);overview();return;} mobileShow(b.classList.contains('on')?null:m);}));
- morePanel.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const x=b.dataset.x; if(x==='flows')togFlows.click(); if(x==='tags')togNew.click(); if(x==='play')togPlay.click(); if(x==='bird')togBird.click(); if(x==='tour'){mobileShow(null); startTour(); return;} if(x==='walk'){mobileShow(null); setWalkMode(!state.walkMode); return;} if(x==='overview'){closeCard();mobileShow(null);overview();return;} if(x==='help')openIntro(false); if(x==='close')mobileShow(null); if(x!=='close'&&x!=='help'){b.classList.toggle('on',{flows:state.showFlows,tags:state.showNew,play:state.playing,bird:state.bird}[x]);}}));
+ function mobileShow(name){ sideSheet.reset(); Object.entries(mobilePanels).forEach(([k,el])=>el.classList.toggle('hidden',k!==name)); morePanel.hidden=name!=='more'; if(name!=='today'){state.todayOpen=false; if(name&&name!=='more')closeCard();} else {state.todayOpen=true; state.cardHidden=false; setSel(null);} if(name!=='list'&&typeof segOn==='function')segOn(state.bird?'bird':'overview'); mtab.querySelector('[data-m=more]').classList.toggle('on',name==='more');}
+ function segOn(name){mtab.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x.dataset.m===name));}
+ mtab.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;
+  if(m==='calc'){avTab='cart'; openAvatar(); morePanel.hidden=true; return;}
+  if(m==='overview'){closeCard(); mobileShow(null); if(state.bird)togBird.click(); overview(); segOn('overview'); return;}
+  if(m==='bird'){closeCard(); mobileShow(null); if(!state.bird)togBird.click(); segOn('bird'); return;}
+  if(m==='list'){const open=!$('#side').classList.contains('hidden'); mobileShow(open?null:'list'); segOn(open?(state.bird?'bird':'overview'):'list'); return;}
+  if(m==='tour'){mobileShow(null); if(tour.on)stopTour(); else startTour(); return;}
+  if(m==='more'){mobileShow(morePanel.hidden?'more':null); return;}}));
+ $('.brand').addEventListener('click',()=>{if(!isMobile())return; if(state.todayOpen){closeCard(); state.todayOpen=false; renderCard();} else mobileShow('today');});
+ morePanel.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const x=b.dataset.x; if(x==='flows')togFlows.click(); if(x==='tags')togNew.click(); if(x==='play')togPlay.click(); if(x==='days'){mobileShow(null); openDaysCard(); return;} if(x==='today'){mobileShow('today'); return;} if(x==='avatar'){mobileShow(null); avTab='look'; openAvatar(); return;} if(x==='photo'){mobileShow(null); avTab='photo'; openAvatar(); return;} if(x==='walk'){mobileShow(null); setWalkMode(!state.walkMode); return;} if(x==='help'){mobileShow(null); openIntro(false); return;} if(x==='close'){mobileShow(null); return;} b.classList.toggle('on',{flows:state.showFlows,tags:state.showNew,play:state.playing}[x]);}));
  let lastMobile=null; function applyLayout(){if(lastMobile===isMobile())return; lastMobile=isMobile(); if(isMobile()){ $('#side').classList.add('hidden'); $('#hud').classList.add('hidden'); } else { $('#side').classList.remove('hidden'); $('#hud').classList.remove('hidden'); } }
  applyLayout();
  addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return; if(e.key==='Escape'){if(!$('#intro').hidden){return;} if(tour.on){stopTour();return;} if(state.photo){stopPhoto();return;} closeCard(); if(isMobile())mobileShow(null);} if(e.key===' '){e.preventDefault();setPlay(!state.playing);} if(e.key==='ArrowLeft')panCam(-1,0); if(e.key==='ArrowRight')panCam(1,0); if(e.key==='ArrowUp')panCam(0,1); if(e.key==='ArrowDown')panCam(0,-1); if(e.key==='q'||e.key==='Q')rotateCam(Math.PI/8); if(e.key==='e'||e.key==='E')rotateCam(-Math.PI/8); if(e.key==='+'||e.key==='=')zoomCam(.8); if(e.key==='-')zoomCam(1.25); if(e.key==='['||e.key===',')setDay(state.day>1?state.day-1:14); if(e.key===']'||e.key==='.')setDay(state.day<14?state.day+1:1);});
@@ -5109,7 +5165,7 @@ async function main(){
   if(tag.startsWith('item:'))selectItem(tag.slice(5)); else if(tag.startsWith('island:'))selectIsland(tag.slice(7));});
 
  // ---------- resize ----------
- function onResize(){const w=innerWidth,h=innerHeight; renderer.setSize(w,h); labelRenderer.setSize(w,h); camera.aspect=w/h; camera.updateProjectionMatrix(); pr.max=Math.min(devicePixelRatio,isMobile()?1.4:1.75); pr.cur=Math.min(pr.cur,pr.max); renderer.setPixelRatio(pr.cur); applyLayout();}
+ function onResize(){const w=innerWidth,h=innerHeight; renderer.setSize(w,h); labelRenderer.setSize(w,h); camera.aspect=w/h; camera.fov=w/h<.75?48:32; camera.updateProjectionMatrix(); pr.max=Math.min(devicePixelRatio,isMobile()?1.4:1.75); pr.cur=Math.min(pr.cur,pr.max); renderer.setPixelRatio(pr.cur); applyLayout();}
  new ResizeObserver(onResize).observe(document.body);
 
  // ---------- 主迴圈 ----------
@@ -5122,18 +5178,18 @@ async function main(){
   if(state.minuteT<1){state.minuteT=Math.min(1,state.minuteT+dt/1.6); applyTime(lerp(state.minuteFrom,state.minuteTo,ease(state.minuteT)));}
   if(state.playing&&!frozen&&!state.sel&&!state.wizard&&$('#intro').hidden){state.dayTimer+=dt; if(state.dayTimer>=DAY_SEC){setDay(state.day<14?state.day+1:1);}}
   if(tour.on)tourStep(frozen?0:dt);
-  if(!frozen){stepAvatar(dt,t); stepMomoco(dt,t); stepJeremy(dt,t); stepExperts(dt,t); stepWalkers(dt,t); stepFireworks(dt); waterMat.uniforms.uTime.value=t; flowMats.forEach(m=>m.uniforms.uTime.value=t); clouds.forEach(c=>{c.position.x+=dt*.4; if(c.position.x>center.x+80)c.position.x=center.x-80;});}
-  const d=camera.position.distanceTo(controls.target); proximityPins(dt); if(Math.abs(d-lastDist)>2){lastDist=d; updateBadges(); const showLod=lastLod?d<27.5:d<24.5; if(showLod!==lastLod){lastLod=showLod; lodMeshes.forEach(m=>{m.visible=showLod;}); shadowDirty();}}
+  if(!frozen){stepAvatar(dt,t); stepMomoco(dt,t); stepJeremy(dt,t); stepExperts(dt,t); stepWalkers(dt,t); stepFireworks(dt); waterMat.uniforms.uTime.value=t; flowMats.forEach(m=>m.uniforms.uTime.value=t); clouds.forEach(c=>{c.position.x+=dt*.4; if(c.position.x>center.x+80)c.position.x=center.x-80;}); {const co=camera.position.y>24?.12:.92; const cm0=clouds[0]&&clouds[0].material; if(cm0&&Math.abs(cm0.opacity-co)>.01)cm0.opacity+=(co-cm0.opacity)*Math.min(1,dt*3);};}
+  const d=camera.position.distanceTo(controls.target); proximityPins(dt); {const nearCam=d<14||state.photo||(state.sel&&['avatar','momoco'].includes(state.sel.type)); if(nameObj.visible!==nearCam)nameObj.visible=nearCam; const mp=momoco.userData.plate; if(mp&&mp.visible!==nearCam)mp.visible=nearCam;} if(Math.abs(d-lastDist)>2){lastDist=d; updateBadges(); const showLod=lastLod?d<27.5:d<24.5; if(showLod!==lastLod){lastLod=showLod; lodMeshes.forEach(m=>{m.visible=showLod;}); shadowDirty();}}
   governor(dt); collideLabels(dt);
   if(location.hash==='#debug'){let el=document.getElementById('dbg'); if(!el){el=document.createElement('div');el.id='dbg';el.style.cssText='position:fixed;left:50%;top:60px;transform:translateX(-50%);background:#000c;color:#0f0;font:11px monospace;padding:4px 8px;z-index:99;white-space:pre';document.body.appendChild(el);} const f=v=>v.toArray().map(n=>n.toFixed(2)).join(','); el.textContent=`cam ${f(camera.position)}\ntgt ${f(controls.target)}\nav ${f(avatar.position)} walk:${avatarState.walking} follow:${avatarState.follow} seg:${avatarState.seg}/${avatarState.path.length} fly:${!!fly} sel:${state.sel&&state.sel.type} mob:${isMobile()}`;}
   renderer.render(scene,camera); labelRenderer.render(scene,camera);}
 
  // ---------- 啟動 ----------
- recalc(); updateWalkers(); applyTime(dayInfo(1).min); shadowDirty(); overview(); camera.position.copy(center.clone().addScaledVector(DIR,innerWidth/innerHeight>1.5?28.5:38)); fly=null; const qs=new URLSearchParams(location.search); const qd=parseInt(qs.get('day'),10); setDay(qd>=1&&qd<=14?qd:1,{animate:false}); setPlay(qs.has('autoplay')); renderList(); if(qs.get('island')&&islandMap[qs.get('island')])setTimeout(()=>selectIsland(qs.get('island')),600);
+ recalc(); updateWalkers(); applyTime(dayInfo(1).min); shadowDirty(); overview(); fly=null; {const {d,dir,tgt}=ovParams(); controls.target.copy(tgt); camera.position.copy(tgt.clone().addScaledVector(dir,d));} const qs=new URLSearchParams(location.search); const qd=parseInt(qs.get('day'),10); setDay(qd>=1&&qd<=14?qd:1,{animate:false}); setPlay(qs.has('autoplay')); renderList(); if(qs.get('island')&&islandMap[qs.get('island')])setTimeout(()=>selectIsland(qs.get('island')),600);
  reduced.addEventListener('change',()=>{fly=null;});
  window.__d11={walkToIsland,walkTo,avatar,avatarState,state,openAvatar,setDay,selectIsland,selectItem,nodes,dijkstra,camera,controls,calcDay,CART:()=>CART,setCart:c=>{Object.assign(CART,c);recalc();applyColors();updateBadges();renderDays();renderCard();},startWizard,openIntro,startTour,stopTour,tour,pr,lodMeshes,thumbOf,setWalkMode,keys,joy,onGround,momoco,mcState,EXPERTS,selectExpert};
  tick();
- requestAnimationFrame(()=>{const l=$('#loading'); l.style.opacity='0'; setTimeout(()=>l.remove(),500); if(!store.get('d11island_help'))openIntro(true); else if(!store.get('d11_wizard'))startWizard();});
+ requestAnimationFrame(()=>{const l=$('#loading'); l.style.opacity='0'; setTimeout(()=>l.remove(),500); if(!store.get('d11island_help'))openIntro(false);});
 }
 addEventListener('error',e=>{try{let t=document.getElementById('errToast'); if(!t){t=document.createElement('div');t.id='errToast';t.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);background:#b3261e;color:#fff;font:12px ui-monospace,monospace;padding:8px 12px;border-radius:10px;z-index:99;max-width:80vw;overflow-wrap:anywhere';document.body.appendChild(t);} t.textContent='錯誤：'+(e.message||e.error)+' @'+(e.lineno||'');}catch(x){}});
 function showError(err){const l=document.getElementById('loading'); const m=document.getElementById('loadMsg'); if(m)m.textContent='載入失敗，請檢查網路或改用支援 WebGL 的瀏覽器。'; const d=document.createElement('div'); d.className='err'; d.textContent=String(err&&err.stack||err); l.querySelector('div').appendChild(d); console.error(err);}
